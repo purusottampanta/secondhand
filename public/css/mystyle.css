@@ -1,0 +1,37 @@
+.text-black{
+	color: black;
+}
+
+.categories{
+	list-style-type: none;
+	margin-left: -2.5em;
+
+}
+
+.categories>li>a{
+	font-weight: bold;
+	color: black;
+	text-decoration: none;
+}
+
+.sub-categories{
+	list-style-type: none;
+	margin-left: -2.5em;
+}
+
+.sub-categories li{
+	display: inline;
+}
+
+.sub-categories li a{
+	color: grey;
+}
+
+.bg-yellow{
+	background: #f9ee89;
+}
+
+.mar-0{
+	margin-bottom: 0px;
+	margin-top: 0px;
+}
