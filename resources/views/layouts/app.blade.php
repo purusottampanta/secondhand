@@ -13,7 +13,7 @@
     <!-- Styles -->
     @section('stylesheets')
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-        <link href="{{ asset('css/mystyle.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/mystyle.css') }}?<?php echo time(); ?>" rel="stylesheet">
     @show
 </head>
 <body>

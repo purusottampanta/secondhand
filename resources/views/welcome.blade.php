@@ -24,13 +24,75 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="panel panel-info">
-                        <div class="panel-heading">Panel Heading</div>
-                        <div class="panel-body">
+                        <div class="panel-heading">Featured Ads</div>
+                        <div class="panel-body pad-0" style="padding-left: 15px">
                             <div class="row">
-                                <div class="col-md-3"></div>
-                                <div class="col-md-3"></div>
-                                <div class="col-md-3"></div>
-                                <div class="col-md-3"></div>
+                                <div class="col-md-12 pad-l-0">
+                                    <div class="col-md-3" style="border-right: 1px solid #bce8f1;">
+                                        <a href="#">
+                                            <div class="row">
+                                                <div class="pad-10">
+                                                    <img src="{{ asset('/uploads/images/img1.jpg') }}" height="100%" width="100%">
+                                                </div>
+                                                <div class="pad-10 text-center">
+                                                    Name
+                                                    <br>
+                                                    Price
+                                                    <br>
+                                                    (condition)
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="col-md-3" style="border-right: 1px solid #bce8f1;">
+                                        <a href="#">
+                                            <div class="row">
+                                                <div class="pad-10">
+                                                    <img src="{{ asset('/uploads/images/img2.jpg') }}" height="100%" width="100%">
+                                                </div>
+                                                <div class="pad-10 text-center">
+                                                    Name
+                                                    <br>
+                                                    Price
+                                                    <br>
+                                                    (condition)
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="col-md-3" style="border-right: 1px solid #bce8f1;">
+                                        <a href="#">
+                                            <div class="row">
+                                                <div class="pad-10">
+                                                    <img src="{{ asset('/uploads/images/img3.jpg') }}" height="100%" width="100%">
+                                                </div>
+                                                <div class="pad-10 text-center">
+                                                    Name
+                                                    <br>
+                                                    Price
+                                                    <br>
+                                                    (condition)
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="col-md-3" style="border-right: 1px solid #bce8f1;">
+                                        <a href="#">
+                                            <div class="row">
+                                                <div class="pad-10">
+                                                    <img src="{{ asset('/uploads/images/img4.jpg') }}" height="100%" width="100%">
+                                                </div>
+                                                <div class="pad-10 text-center">
+                                                    Name
+                                                    <br>
+                                                    Price
+                                                    <br>
+                                                    (condition)
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
