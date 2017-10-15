@@ -11,15 +11,29 @@
                     <form class="form-horizontal" method="POST" action="{{ route('register') }}">
                         {{ csrf_field() }}
 
-                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                            <label for="name" class="col-md-4 control-label">Name</label>
+                        <div class="form-group{{ $errors->has('first_name') ? ' has-error' : '' }}">
+                            <label for="first_name" class="col-md-4 control-label">First Name</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
+                                <input id="first_name" type="text" class="form-control" name="first_name" value="{{ old('first_name') }}" required autofocus>
 
-                                @if ($errors->has('name'))
+                                @if ($errors->has('first_name'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('name') }}</strong>
+                                        <strong>{{ $errors->first('first_name') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('last_name') ? ' has-error' : '' }}">
+                            <label for="last_name" class="col-md-4 control-label">First Name</label>
+
+                            <div class="col-md-6">
+                                <input id="last_name" type="text" class="form-control" name="last_name" value="{{ old('last_name') }}" required autofocus>
+
+                                @if ($errors->has('last_name'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('last_name') }}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -89,43 +103,43 @@
                             </div>
                         </div>
                         
-                        <div class="form-group{{ $errors->has('address_1') ? ' has-error' : '' }}">
-                            <label for="address_1" class="col-md-4 control-label">Address 1 (Street name)</label>
+                        <div class="form-group{{ $errors->has('street') ? ' has-error' : '' }}">
+                            <label for="street" class="col-md-4 control-label">Address 1 (Street name)</label>
 
                             <div class="col-md-6">
-                                <input id="address_1" type="address_1" class="form-control" name="address_1" required>
+                                <input id="street" type="street" class="form-control" name="street" required>
 
-                                @if ($errors->has('address_1'))
+                                @if ($errors->has('street'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('address_1') }}</strong>
+                                        <strong>{{ $errors->first('street') }}</strong>
                                     </span>
                                 @endif
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('address_2') ? ' has-error' : '' }}">
-                            <label for="address_2" class="col-md-4 control-label">Address 2 (Area location)</label>
+                        <div class="form-group{{ $errors->has('area_location') ? ' has-error' : '' }}">
+                            <label for="area_location" class="col-md-4 control-label">Address 2 (Area location)</label>
 
                             <div class="col-md-6">
-                                <input id="address_2" type="address_2" class="form-control" name="address_2" required>
+                                <input id="area_location" type="area_location" class="form-control" name="area_location" required>
 
-                                @if ($errors->has('address_2'))
+                                @if ($errors->has('area_location'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('address_2') }}</strong>
+                                        <strong>{{ $errors->first('area_location') }}</strong>
                                     </span>
                                 @endif
                             </div>
                         </div>
                         
-                        <div class="form-group{{ $errors->has('address_3') ? ' has-error' : '' }}">
-                            <label for="address_3" class="col-md-4 control-label">Address 3 (City Name)</label>
+                        <div class="form-group{{ $errors->has('city') ? ' has-error' : '' }}">
+                            <label for="city" class="col-md-4 control-label">Address 3 (City Name)</label>
 
                             <div class="col-md-6">
-                                <input id="address_3" type="address_3" class="form-control" name="address_3" required>
+                                <input id="city" type="city" class="form-control" name="city" required>
 
-                                @if ($errors->has('address_3'))
+                                @if ($errors->has('city'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('address_3') }}</strong>
+                                        <strong>{{ $errors->first('city') }}</strong>
                                     </span>
                                 @endif
                             </div>

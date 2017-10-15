@@ -19,6 +19,10 @@
 <body>
     <div id="app">
         @include('layouts.topheader')
+        
+        <div class="container">
+            @include('layouts.returnmessage')
+        </div>
 
         @yield('content')
     </div>

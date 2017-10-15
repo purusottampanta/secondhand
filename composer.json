@@ -21,6 +21,11 @@
         "classmap": [
             "database"
         ],
+        "files":[
+            "app/Http/Helpers/GeneralHelpers.php",
+            "app/Http/Helpers/FormHelpers.php",
+            "app/Http/Helpers/StringHelpers.php"
+        ],
         "psr-4": {
             "App\\": "app/"
         }

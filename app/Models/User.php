@@ -48,4 +48,23 @@ class User extends Authenticatable
     {
         return $this->full_name;
     }
+
+    /**
+     * this method returns first name of user from full name
+     * @return mixed 
+     */
+    public function getFirstNameAttribute()
+    {
+        $name = explode(' ', $this->full_name);
+        return implode(' ', array_diff($name, [last($name)]));
+    }
+
+    /**
+     * this method returns last name of user from full name
+     * @return mixed 
+     */
+    public function getLastNameAttribute()
+    {
+        return (last(explode(' ', $this->full_name)));
+    }
 }
