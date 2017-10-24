@@ -61,6 +61,10 @@ class LoginController extends Controller
             <br>To get a new confirmation email please <a href="' . url('auth/resend') . '" class="alert-link">click here</a>.');
         }
 
+        if($user->is_admin){
+            return redirect()->intended('/admin/dashboard');
+        }
+
         return redirect()->intended('/');
     }
 
