@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class SellController extends Controller
+class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class SellController extends Controller
      */
     public function index()
     {
-        return view('admin.sell.index');
+        return view('admin.products.index');
     }
 
     /**

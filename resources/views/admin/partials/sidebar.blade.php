@@ -8,7 +8,7 @@
           <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Alexander Pierce</p>
+          <p>{{ authUser()->full_name }}</p>
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
       </div>
@@ -39,7 +39,7 @@
         </li>
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-files-o"></i>
+            <i class="fa fa-users"></i>
             <span>Users</span>
            {{--  <span class="pull-right-container">
               <span class="label label-primary pull-right">4</span>
@@ -53,25 +53,25 @@
             <li><a href="{{ route('admin.users.create') }}"><i class="fa fa-circle-o"></i> Add new</a></li>
           </ul>
         </li>
-        <li>
+        {{-- <li>
           <a href="{{ route('admin.users.sellRequest') }}">
             <i class="fa fa-th"></i> <span>User Sell request</span>
-           {{--  <span class="pull-right-container">
+            <span class="pull-right-container">
               <small class="label pull-right bg-green">new</small>
-            </span> --}}
+            </span>
           </a>
-        </li>
+        </li> --}}
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-pie-chart"></i>
-            <span>Admin Sell</span>
+            <i class="fa fa-product-hunt"></i>
+            <span>Products</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="{{ route('admin.sell.index') }}"><i class="fa fa-circle-o"></i> All</a></li>
-            <li><a href="{{ route('admin.sell.create') }}"><i class="fa fa-circle-o"></i> Add new</a></li>
+            <li><a href="{{ route('admin.products.index') }}"><i class="fa fa-circle-o"></i> All</a></li>
+            <li><a href="{{ route('admin.products.create') }}"><i class="fa fa-circle-o"></i> Add new</a></li>
             {{-- <li><a href="pages/charts/flot.html"><i class="fa fa-circle-o"></i> Flot</a></li>
             <li><a href="pages/charts/inline.html"><i class="fa fa-circle-o"></i> Inline charts</a></li> --}}
           </ul>
