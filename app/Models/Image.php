@@ -6,7 +6,7 @@ use App\Traits\ActivityTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 
-class Product extends Model
+class Image extends Model
 {
     use SoftDeletes, ActivityTrait;
 
@@ -17,18 +17,18 @@ class Product extends Model
      *
      * @return array
      */
-    public function sluggable()
-    {
-        return [
-            'product_slug' => [
-                'source' => 'product_name'
-            ]
-        ];
-    }
+    // public function sluggable()
+    // {
+    //     return [
+    //         'product_slug' => [
+    //             'source' => 'product_name'
+    //         ]
+    //     ];
+    // }
 
     public function getTitle()
     {
-        return $this->product_name;
+        return $this->image_name;
     }
 
     public function product()
