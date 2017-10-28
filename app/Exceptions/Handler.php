@@ -118,10 +118,10 @@ class Handler extends ExceptionHandler
             return $e->getResponse();
         }
 
-        if(env('APP_ENV') != 'local'){
+        // if(env('APP_ENV') != 'local'){
 
-            return response()->view('errors.myerror', ['title' => 'Looks like you found a BUG, help us to fix it by clicking the REPORT ERROR button below!', 'message' => 'Something Went Wrong!', 'maileable' => 'yes', 'e' => $e]);
-        }
+        //     return response()->view('errors.myerror', ['title' => 'Looks like you found a BUG, help us to fix it by clicking the REPORT ERROR button below!', 'message' => 'Something Went Wrong!', 'maileable' => 'yes', 'e' => $e]);
+        // }
 
         return parent::render($request, $e);
     }

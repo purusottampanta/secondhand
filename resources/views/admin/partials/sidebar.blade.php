@@ -26,7 +26,7 @@
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
-        <li class="active">
+        <li class="{{ setActive('admin.dashboard') }}">
           <a href="{{ route('admin.dashboard') }}">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
             {{-- <span class="pull-right-container">
@@ -61,17 +61,17 @@
             </span>
           </a>
         </li> --}}
-        <li class="treeview">
-          <a href="#">
+        <li class="treeview {{ set_active('admin/products') }}">
+          <a href="#" class="{{ set_active('admin/products') }}">
             <i class="fa fa-product-hunt"></i>
-            <span>Products</span>
+            <span class="{{ set_active('admin/products') }}">Products</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="{{ route('admin.products.index') }}"><i class="fa fa-circle-o"></i> All</a></li>
-            <li><a href="{{ route('admin.products.create') }}"><i class="fa fa-circle-o"></i> Add new</a></li>
+            <li class="{{ setActive('admin.products.index') }}"><a href="{{ route('admin.products.index') }}"><i class="fa fa-circle-o"></i> All</a></li>
+            <li class="{{ setActive('admin.products.create') }}"><a href="{{ route('admin.products.create') }}"><i class="fa fa-circle-o"></i> Add new</a></li>
             {{-- <li><a href="pages/charts/flot.html"><i class="fa fa-circle-o"></i> Flot</a></li>
             <li><a href="pages/charts/inline.html"><i class="fa fa-circle-o"></i> Inline charts</a></li> --}}
           </ul>

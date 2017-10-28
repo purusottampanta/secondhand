@@ -18,7 +18,18 @@ Route::group(['namespace' => 'General'], function(){
 		'as' => 'welcome',
 		'uses' => 'WelcomeController@index',
 	]);
+
+	Route::get('/category/{category}', [
+		'as' => 'general.category',
+		'uses' => 'WelcomeController@productByCategory',
+	]);
+
+	Route::get('/ad/{category}/{slug}', [
+		'as' => 'general.products.show',
+		'uses' => 'WelcomeController@showProduct',
+	]);
 });
+
 
 Auth::routes();
 

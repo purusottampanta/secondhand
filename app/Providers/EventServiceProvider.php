@@ -19,6 +19,9 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\Auth\EmailConfirmed' => [
             'App\Listeners\Auth\EmailConfirmedListener',
         ],
+        'App\Events\Product\ProductViewCounter' => [
+            'App\Listeners\Product\ProductViewCounterListener',
+        ],
     ];
 
     /**

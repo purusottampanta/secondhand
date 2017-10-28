@@ -84,3 +84,13 @@ function youAreDenied($rule, $model)
       abort(403, 'Sorry! You are not authorized for this action.');
   }
 }
+
+function getCategories()
+{
+	return [
+		'home_furniture' => 'Home Furniture',
+		'office_furniture' => 'Office Furniture',
+		'electronics' => 'Electronics',
+		'others' => 'Others'
+	];
+}

@@ -31,6 +31,18 @@ class Image extends Model
         return $this->image_name;
     }
 
+    public function smallThumbnail()
+    {
+        $value = $this->image_path;
+        return asset($value ? getSmallThumbnail($value) : 'img/avatar1.jpg');
+    }
+
+    public function thumbnail()
+    {
+        $value = $this->image_path;
+        return asset($value ? getThumbnail($value) : 'img/avatar1.jpg');
+    }
+
     public function product()
     {
     	return $this->belongsTo(Product::class);

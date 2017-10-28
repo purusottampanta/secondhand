@@ -23,7 +23,7 @@ function getDeleteForm($route, $title, $text, $class = 'btn btn-icon-toggle', $i
     //     $field
     // </form>
     return <<<HTML
-    <a class="confirm-delete $class" type='button' data-title="$title" data-text='$text' data-toggle="modal" data-route="$route" data-target="#ConfirmDeleteModal" data-keyboard="false" data-backdrop="static">
+    <a class="confirm-delete $class" type='button' data-title="$title" data-text='$text' data-toggle="modal" data-route="$route" data-target="#ConfirmDeleteModal" data-keyboard="false" data-backdrop="static" title="delete">
         <i class="$iclass opacity-75"></i> $value
     </a>
     

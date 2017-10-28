@@ -31,6 +31,9 @@
     <link rel="stylesheet" href="{{ asset('lib/bootstrap-daterangepicker/daterangepicker.css') }}">
     <!-- bootstrap wysihtml5 - text editor -->
     <link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+      
+    <link href="{{ asset('css/mystyle.css') }}?<?php echo time(); ?>" rel="stylesheet">
+
 
   @show
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -51,6 +54,9 @@
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
+    <div class="col-md-offset-1 col-md-10">
+      @include('layouts.returnmessage')
+    </div>
     @yield('content')
   </div>
   <!-- /.content-wrapper -->
@@ -101,6 +107,15 @@
   <script src="{{ asset('dist/js/pages/dashboard.js') }}"></script>
   <!-- AdminLTE for demo purposes -->
   <script src="{{ asset('dist/js/demo.js') }}"></script>
+  
+  <script>
+     $(document).ready(function(){
+        setTimeout(function() {
+          $('#success-return, #error-return').fadeOut('fast');
+        }, 5000); // <-- time in milliseconds
+    });
+  </script>
+
 @show
 </body>
 </html>

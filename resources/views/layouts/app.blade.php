@@ -11,8 +11,9 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
-    @section('stylesheets')
+    @section('stylesheet')
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <link rel="stylesheet" href="{{ asset('lib/font-awesome/css/font-awesome.min.css') }}">
         <link href="{{ asset('css/mystyle.css') }}?<?php echo time(); ?>" rel="stylesheet">
     @show
 </head>
@@ -25,9 +26,13 @@
         </div>
 
         @yield('content')
+
+        @include('layouts.footer')
     </div>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
+    @section('javascript')
+        <script src="{{ asset('js/app.js') }}"></script>
+    @show
 </body>
 </html>

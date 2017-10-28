@@ -199,3 +199,16 @@
 .mar-b-20{
 	margin-bottom: 20px;
 }
+
+.borderless td, .borderless th {
+    border: none !important;
+}
+
+.color-inherit{
+	color: inherit !important;
+}
+
+.text-xs{
+	font-size: 13px !important;
+}
+
