@@ -21,7 +21,8 @@ class UserRepository extends Repository
 	public function registerUser($inputs, $confirmation_code)
 	{
 		$user 								= $this->getNew();
-		$user->full_name 			= $inputs['first_name'] . ' ' . $inputs['last_name'];
+		// $user->full_name 			= $inputs['first_name'] . ' ' . $inputs['last_name'];
+		$user->full_name 			= $inputs['full_name'];
 		$user->email 					=	$inputs['email'];
 		// $user->country 				= $inputs['country'];
 		$user->street  				= $inputs['street'];

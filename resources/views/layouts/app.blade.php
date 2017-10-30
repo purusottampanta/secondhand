@@ -13,6 +13,7 @@
     <!-- Styles -->
     @section('stylesheet')
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
         <link rel="stylesheet" href="{{ asset('lib/font-awesome/css/font-awesome.min.css') }}">
         <link href="{{ asset('css/mystyle.css') }}?<?php echo time(); ?>" rel="stylesheet">
     @show
@@ -33,6 +34,8 @@
     <!-- Scripts -->
     @section('javascript')
         <script src="{{ asset('js/app.js') }}"></script>
+
+
     @show
 </body>
 </html>

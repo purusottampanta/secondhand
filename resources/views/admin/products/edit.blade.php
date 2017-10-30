@@ -157,7 +157,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="row">
+				{{-- <div class="row">
 					<div class="col-md-12 form-group{{ $errors->has('listing_duration') ? ' has-error' : '' }}">
 						<div class="col-md-offset-1 col-md-2">
 							<label for="listing_duration" class="control-label">Listing duration</label>
@@ -173,8 +173,8 @@
 							@endif
 						</div>
 					</div>
-				</div>
-				<div class="row">
+				</div> --}}
+				{{-- <div class="row">
 					<div class="col-md-12 form-group{{ $errors->has('features') ? ' has-error' : '' }}">
 						<div class="col-md-offset-1 col-md-2">
 							<label for="features" class="control-label">Features</label>
@@ -190,7 +190,7 @@
 							@endif
 						</div>
 					</div>
-				</div>
+				</div> --}}
 				<?php 
 					if($product->images){
 						$images = $product->imageArray();

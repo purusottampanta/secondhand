@@ -22,9 +22,11 @@ class WelcomeController extends Controller
 
    		$products = $this->productRepo->productModel()->with(['images' => function($q){
    			$q->oldest();
-   		}])->where('status', 'listed_for_sell')->latest()->get();
+   		}])->where('status', 'listed_for_sell')->latest()->get()->take(9);
 
-   		$featured = $products->where('is_featured', 1);
+   		$featured = $this->productRepo->productModel()->with(['images' => function($q){
+               $q->oldest();
+         }])->where('status', 'listed_for_sell')->where('is_featured', 1)->latest()->get()->take(9);
 
    		return view('welcome', compact('featured', 'products'));
    }

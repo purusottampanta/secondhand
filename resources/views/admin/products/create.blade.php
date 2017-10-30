@@ -15,7 +15,7 @@
 							<a href="{{ url()->previous() }}">
 								<button class="btn btn-danger text-uppercase" type="button">Cancel</button>
 							</a>
-							<input type="submit" class="btn btn-default text-uppercase" value="Create">
+							<input type="submit" class="btn btn-primary text-uppercase" value="Create">
 						</div>
 					</div>
 				</div>
@@ -157,7 +157,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="row">
+				{{-- <div class="row">
 					<div class="col-md-12 form-group{{ $errors->has('listing_duration') ? ' has-error' : '' }}">
 						<div class="col-md-offset-1 col-md-2">
 							<label for="listing_duration" class="control-label">Listing duration</label>
@@ -173,8 +173,8 @@
 							@endif
 						</div>
 					</div>
-				</div>
-				<div class="row">
+				</div> --}}
+				{{-- <div class="row">
 					<div class="col-md-12 form-group{{ $errors->has('features') ? ' has-error' : '' }}">
 						<div class="col-md-offset-1 col-md-2">
 							<label for="features" class="control-label">Features</label>
@@ -190,11 +190,11 @@
 							@endif
 						</div>
 					</div>
-				</div>
+				</div> --}}
 				<div class="row">
 					<div class="col-sm-3 col-md-offset-3 form-group {{ ($errors->has('image.0') ? 'has-error' : '') }}">
                         <label for="image[0]" class="control-label">
-                                Image 1/4
+                                Image 1/2
                                 <span class="text-danger pad-l-10">*</span>
                             </label>
                         <input type='file' id="image[0]" name="image[0]" class="image" />
@@ -214,7 +214,7 @@
                     </div>
                     <div class="col-sm-3 form-group {{ ($errors->has('image.1') ? 'has-error' : '') }}">
                         <label for="image[1]" class="control-label">
-                                Image 2/4
+                                Image 2/2
                                 <span class="text-danger pad-l-10">*</span>
                             </label>
                         <input type='file' id="image[1]" name="image[1]" class="image" />
@@ -240,7 +240,7 @@
 						</div>
 
 						<div class="col-md-6">
-							<textarea name="description" id="description" cols="30" rows="10" class="form-control">
+							<textarea name="description" id="description" cols="30" rows="6" class="form-control">
 								{{ old('description') }}
 							</textarea>
 
@@ -258,7 +258,7 @@
 							<a href="{{ url()->previous() }}">
 								<button class="btn btn-danger text-uppercase" type="button">Cancel</button>
 							</a>
-							<input type="submit" class="btn btn-default text-uppercase" value="Create">
+							<input type="submit" class="btn btn-primary text-uppercase" value="Create">
 						</div>
 					</div>
 				</div>

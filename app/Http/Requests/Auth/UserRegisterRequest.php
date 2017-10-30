@@ -24,8 +24,8 @@ class UserRegisterRequest extends FormRequest
     public function rules()
     {
         return [
-            'first_name'    => 'required|max:255',
-            'last_name'     => 'required|max:255',
+            'full_name'    => 'required|max:255',
+            // 'last_name'     => 'required|max:255',
             'slug'          => ['unique:users,slug'],
             'email'         => 'required|email|max:255|unique:users',
             // 'country'       => 'required',
