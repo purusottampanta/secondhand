@@ -4,7 +4,7 @@ namespace App\Http\Requests\Auth;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserRegisterRequest extends FormRequest
+class UserUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class UserRegisterRequest extends FormRequest
      */
     public function authorize()
     {
-        return ! auth()->check() || (auth()->check() && authUser()->is_admin);
+        return auth()->check();
     }
 
     /**
@@ -25,11 +25,7 @@ class UserRegisterRequest extends FormRequest
     {
         return [
             'full_name'    => 'required|max:255',
-            // 'last_name'     => 'required|max:255',
-            'slug'          => ['unique:users,slug'],
-            'email'         => 'required|email|max:255|unique:users',
             // 'country'       => 'required',
-            'password'      => 'required|min:6|confirmed',
             'mobile_phone'  => 'required',
             'street'        => 'required|max:255',
             'area_location' => 'required|max:255',

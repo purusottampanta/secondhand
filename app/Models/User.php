@@ -18,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'profile_picture', 'slug', 'phone', 'mobile_phone', 'street', 'area_location', 'city', 'country', 'gender', 'confirmation_code', 'is_admin', 'confirmed', ''
     ];
 
     /**
@@ -71,5 +71,25 @@ class User extends Authenticatable
     public function products()
     {
         return $this->hasMany(Product::class);
+    }
+
+    /**
+     * find url for profile picture
+     * @return mixed 
+     */
+    public function profilePicture()
+    {
+        $value = $this->profile_picture;
+        return asset($value ? getSmallThumbnail($value) : 'img/avatar.jpg');
+    }
+
+    /**
+     * find profile thumbnail
+     * @return mixed 
+     */
+    public function thumbnail()
+    {
+        $value = $this->profile_picture;
+        return asset($value ? getThumbnail($value) : 'img/avatar.jpg');
     }
 }

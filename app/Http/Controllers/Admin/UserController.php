@@ -4,17 +4,35 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\UserRegisterRequest;
+use App\Http\Requests\Auth\UserUpdateRequest;
+use App\Repositories\Eloquent\UserRepository;
 
 class UserController extends Controller
 {
+    protected $userRepo;
+
+    function __construct(UserRepository $userRepo)
+    {
+        $this->middleware('auth');
+        $this->userRepo = $userRepo;
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $q = $request->q;
+        $confirmed = $request->confirmed;
+        $admin = $request->admin;
+        $sort = $request->sort;
+
+        $users = $this->userRepo->fetchAll()->paginate(20);
+
+        return view('admin.users.index', compact('users', 'q', 'confirmed', 'admin', 'sort'));
     }
 
     /**
@@ -24,7 +42,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        youAreDenied('create', authUser());
+        $user = $this->userRepo->getNew();
+        return view('admin.users.create', compact('user'));
     }
 
     /**
@@ -33,9 +53,13 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserRegisterRequest $request)
     {
-        //
+        youAreDenied('create', authUser());
+        
+        $user = $this->userRepo->registerUser($request->all(), NULL);
+
+        return redirect()->route('admin.users.index')->withStatus('New user created');
     }
 
     /**
@@ -44,9 +68,13 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
-        //
+        $user = $this->userRepo->requiredBySlug($slug);
+
+        youAreDenied('update', $user);
+
+        return view('admin.users.create', compact('user'));
     }
 
     /**
@@ -55,9 +83,13 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($slug)
     {
-        //
+        $user = $this->userRepo->requiredBySlug($slug);
+
+        youAreDenied('update', $user);
+
+        return view('admin.users.create', compact('user'));
     }
 
     /**
@@ -67,9 +99,15 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UserUpdateRequest $request, $id)
     {
-        //
+        $user = $this->userRepo->requiredById($id);
+        youAreDenied('update', $user);
+
+        $user = $this->userRepo->updateUser($user, $request);
+        
+        return back()->withStatus('Profile updated successfully'); 
+
     }
 
     /**

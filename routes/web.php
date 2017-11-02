@@ -28,6 +28,16 @@ Route::group(['namespace' => 'General'], function(){
 		'as' => 'general.products.show',
 		'uses' => 'WelcomeController@showProduct',
 	]);
+
+	Route::get('/featured', [
+		'as' => 'featured',
+		'uses' => 'WelcomeController@featuredOrRecentOnly',
+	]);
+
+	Route::get('/recent', [
+		'as' => 'recent',
+		'uses' => 'WelcomeController@featuredOrRecentOnly',
+	]);
 });
 
 

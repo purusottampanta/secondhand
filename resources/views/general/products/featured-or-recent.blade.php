@@ -4,14 +4,14 @@
 		
 	<div class="container">
 		<div class="row">
-			<div class="col-md-3">
+			<div class="col-md-3" >
 				<div style="margin-top: -20px">
                     @include('layouts.categories')
                 </div>
 			</div>
 			<div class="col-md-9">
 				<div class="panel panel-info">
-	                <div class="panel-heading">{{ getCategories()[$category] }}</div>
+	                <div class="panel-heading">{{ request()->path() == 'featured' ? 'Featured Ads' : 'New Arrivals' }}</div>
 	                <div class="panel-body pad-0">
 						<div class="col-md-12">
 							@forelse($products->chunk(6) as $index => $chunked_products)

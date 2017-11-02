@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class UserRepository extends Repository
 {
+	protected $sortBy = ['full_name-asc', 'full_name-desc', 'created_at-asc', 'created_at-desc'];
+
 	public function model()
 	{
 		return 'App\Models\User';
@@ -24,12 +26,15 @@ class UserRepository extends Repository
 		// $user->full_name 			= $inputs['first_name'] . ' ' . $inputs['last_name'];
 		$user->full_name 			= $inputs['full_name'];
 		$user->email 					=	$inputs['email'];
-		// $user->country 				= $inputs['country'];
 		$user->street  				= $inputs['street'];
 		$user->area_location 	= $inputs['area_location'];
 		$user->city 					= $inputs['city'];
 		$user->password 			= bcrypt($inputs['password']);
 		$user->api_token 			= str_random(60);
+		$user->phone 				= $inputs['phone'] ? $inputs['phone'] : NULL;
+		$user->mobile_phone         = $inputs['mobile_phone'] ? $inputs['mobile_phone'] : NULL;
+		// $user->country 				= $inputs['country'] ? $inputs['country'] : NULL;
+		// $user->gender 				= $inputs['gender'] ? $inputs['gender'] : NULL;
 
 		if($confirmation_code){
 			$user->confirmation_code = $confirmation_code;
@@ -65,10 +70,8 @@ class UserRepository extends Repository
 	 */
 	public function updateUser($user ,$request)
 	{
-		// $user = $this->requiredById($id);
-		// request zip and phone also
-		$data = $request->except('first_name', 'last_name', 'profile_picture', 'zip', 'phone');
-		$data['full_name'] = $request->first_name . ' ' . $request->last_name;
+		$data = $request->all();
+
 		if($request->file('profile_picture')){
 			$data['profilePicture'] = $this->uploadPhoto($request->file('profile_picture'), "uploads/users/$user->id", $user->profile_picture);
 
@@ -77,11 +80,86 @@ class UserRepository extends Repository
 
 		$user->update($data);
 
-		if($request->has('role')){
-			$user->assignMultipleRole($request->role);
+		return $data;
+	}
+
+	public function fetchAll()
+	{
+		return $this->searchAndFilter();
+	}
+
+	protected function searchAndFilter()
+	{
+		$search = $this->search();
+
+		$admin = $this->filterByAdmin($search);
+
+		$confirmed = $this->filterByConfirmed($admin);
+
+		return $this->sort($confirmed);
+	}
+
+	protected function search()
+	{
+		$q = trim(request()->q);
+
+		return $this->users();
+	}
+
+	public function users()
+	{
+		if(authUser()->is_admin){
+			return $this->model;
 		}
 
-		return $data;
+		return null;
+	}
+
+	protected function filterByAdmin($search)
+	{
+		$is_admin = request()->admin;
+
+		if($is_admin){
+			if($is_admin == 'admin'){
+				return $search->where('is_admin', 1);
+			}
+
+			return $search->where('is_admin', 0);
+		}
+
+		return $search;
+	}
+
+	protected function filterByConfirmed($admin)
+	{
+		$is_confirmed = request()->confirmed;
+
+		if($is_confirmed){
+			if($is_confirmed == 'confirmed'){
+				return $admin->where('confirmed', 1);
+			}
+
+			return $admin->where('confirmed', 0);
+		}
+
+		return $admin;
+	}
+
+	protected function sort($confirmed)
+	{
+		$sortBy = request()->sort;
+
+		if($sortBy){
+			if(in_array($sortBy, $this->sortBy)){
+				list($name, $order) = explode('-', $sortBy);
+
+				return $confirmed->where($name, $order);
+			}
+
+			abort(404);
+		}
+
+		return $confirmed->orderBy('created_at', 'DESC');
 	}
 
 }

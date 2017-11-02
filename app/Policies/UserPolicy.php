@@ -10,49 +10,78 @@ class UserPolicy
     use HandlesAuthorization;
 
     /**
-     * Determine whether the user can view the user.
+     * Create a new policy instance.
      *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\User  $user
-     * @return mixed
+     * @return void
      */
-    public function view(User $user, User $user)
+    public function __construct()
     {
         //
     }
 
     /**
-     * Determine whether the user can create users.
-     *
-     * @param  \App\Models\User  $user
-     * @return mixed
+     * this method runs before all other
+     * @param  User   $user    
+     * @param   $ability 
+     * @return bool          
+     */
+    public function before(User $user, $ability)
+    {
+        if ($user->is_admin) {
+            return true;
+        }
+    }
+
+    /**
+     * this method checks if the user is authorized to create user
+     * @param  User   $user 
+     * @return bool       
      */
     public function create(User $user)
     {
-        //
+        return false;
     }
 
     /**
-     * Determine whether the user can update the user.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\User  $user
-     * @return mixed
+     * checks to view users
+     * @param  User   $user 
+     * @return bool       
      */
-    public function update(User $user, User $user)
+    public function view(User $user)
     {
-        //
+        return false;
     }
 
     /**
-     * Determine whether the user can delete the user.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\User  $user
-     * @return mixed
+     * check to show individual user
+     * @param  User   $user       
+     * @param  User   $policyUser 
+     * @return bool             
      */
-    public function delete(User $user, User $user)
+    public function show(User $user, User $policyUser)
     {
-        //
+        return $user->id == $policyUser->id ? true : false;
+    }
+
+    /**
+     * checks to view edit form
+     * @param  User   $user      
+     * @param  User   $policyUser 
+     * @return bool             
+     */
+    public function edit(User $user, User $policyUser)
+    {
+        return $user->id == $policyUser->id ? true : false;
+    }
+
+    /**
+     * checks to update useer
+     * @param  User   $user       
+     * @param  User   $policyUser 
+     * @return bool             
+     */
+    public function update(User $user, User $policyUser)
+    {
+        return $user->id == $policyUser->id ? true : false ;
     }
 }

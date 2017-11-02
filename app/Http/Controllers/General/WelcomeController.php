@@ -44,8 +44,24 @@ class WelcomeController extends Controller
    {
       $products = $this->productRepo->productModel()->with(['images' => function($q){
             $q->oldest();
-         }])->where('status', 'listed_for_sell')->where('category', $category)->latest()->get();
+         }])->where('status', 'listed_for_sell')->where('category', $category)->latest()->paginate(30);
 
-      return view('general.products.bycategory', compact('products'));
+      return view('general.products.bycategory', compact('products', 'category'));
+   }
+
+   public function featuredOrRecentOnly()
+   {
+      if(request()->path() == 'featured'){
+
+         $products = $this->productRepo->productModel()->with(['images' => function($q){
+               $q->oldest();
+         }])->where('status', 'listed_for_sell')->where('is_featured', 1)->latest()->paginate(30);
+      }else{
+         $products = $this->productRepo->productModel()->with(['images' => function($q){
+            $q->oldest();
+         }])->where('status', 'listed_for_sell')->latest()->paginate(30);
+      }
+
+      return view('general.products.featured-or-recent', compact('products'));
    }
 }

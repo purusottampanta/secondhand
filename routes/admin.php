@@ -9,6 +9,10 @@ Route::get('/logout', [
 	'uses' => 'AdminAuthController@logout',
 ]);
 Route::resource('users', 'UserController', ['as' => 'admin']);
+Route::post('/products/statusUpdate/{product}', [
+	'as' => 'admin.products.updateStatus',
+	'uses' => 'ProductController@updateStatus',
+]);
 Route::resource('products', 'ProductController', ['as' => 'admin']);
 Route:: get('/sellRequest', [
 	'as' => 'admin.users.sellRequest',

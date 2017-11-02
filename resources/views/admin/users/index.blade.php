@@ -1,54 +1,27 @@
 @extends('admin.dashboard-layout')
 
-@section('stylesheet')
-@parent
-	<style>
-		.image-hover{
-			background-color: rgba(255,255,255,0.5);
-			/*opacity: 0.5;*/
-			width: 90%; 
-			position: absolute; 
-			top: 10%; 
-			bottom: 20%;
-			-webkit-transition: all 1s ease-in-out 1s;
-			-moz-transition: all 1s ease-in-out 1s;
-			-o-transition: all 1s ease-in-out 1s;
-			transition: all 1s ease-in-out 1s;
-			display: none;
-		}
-		.image-container:hover .image-hover{
-			display: block;
-			-webkit-transition: all 1s ease-in-out 1s;
-			-moz-transition: all 1s ease-in-out 1s;
-			-o-transition: all 1s ease-in-out 1s;
-			transition: all 1s ease-in-out 1s;
-		}
-	</style>
-@endsection
-
 @section('content')
 	<div class="col-md-12">
-		<h2>Products</h2>
-		<div class="row mar-5">
+		<h2>Users</h2>
+		<div class="row">
 			<div class="media pad-10 bg-info">
 				<div class="media-left">
-					<span>Image</span>
+					<span class="pad-l-20 mar-l-20">Image</span>
 				</div>
 				<div class="media-body">
 					<div class="col-md-10">
 						<div class="col-md-3">
-							<span class="pad-l-20 mar-l-20">Product Name</span>
+							<span class="pad-l-20 mar-l-20">Full name</span>
 						</div>
 						<div class="col-md-3">
-							<span class="pad-l-20 mar-l-20">Views</span>
-							<span class="pull-right">Price</span>
+							<span class="pad-l-20 mar-l-20">Email</span>
 						</div>
 						<div class="col-md-2">
-							<span class="pad-l-20 mar-l-20">Condition</span>
+							<span>Mobile phone</span>
 						</div>
 						<div class="col-md-4">
-							<span class="pad-l-20 mar-l-20">Status</span>
-							<span class="pull-right">Category</span>
+							<span>Confirmed</span>
+							<span class="pull-right">Admin</span>
 						</div>
 					</div>
 					<div class="col-md-2">
@@ -57,37 +30,37 @@
 				</div>
 			</div>
 		</div>
-		@forelse($products as $key => $product)
+		@forelse($users as $key => $user)
 			<div class="row mar-5">
-				<div class="media pad-10 {{ getStatusColor($product->status) }}">
+				<div class="media pad-10 {{ $user->is_admin ? 'bg-success': 'bg-info' }}">
 					<div class="media-left">
-					    <a href="{{ route('admin.products.show', $product->product_slug) }}">
-					      <img class="media-object" src="{{ $product->images->first()->smallThumbnail() }}" alt="{{ $product->product_name }}" height="50%" class="img-responsive">
+					    <a href="{{ route('admin.users.show', $user->slug) }}">
+					      <img class="media-object" src="{{ $user->profilePicture() }}" alt="{{ $user->full_name }}" height="{{ $user->profile_picture ? '100%': '35%'  }}" class="img-responsive">
 					    </a>
 					</div>
 					<div class="media-body">
 					    <div class="col-md-10">
-					    	<a href="{{ route('admin.products.show', $product->product_slug) }}" style="{{ getStatusColor($product->status) == 'bg-primary' ? 'color:#000000' : '' }}">
+					    	<a href="{{ route('admin.users.show', $user->slug) }}">
 						    	<div class="col-md-3">
-						    		<h4 class="media-heading">{{ $product->product_name }}</h4>
+						    		<h4 class="media-heading">{{ $user->full_name }}</h4>
 						    	</div>
 							    <div class="col-md-3">
-							    	<span><i class="fa fa-eye pad-r-5"></i>{{ $product->views }}</span>
-							    	<span class="pull-right"><i class="pad-r-5">Rs.</i>{{ $product->price }}</span>
+							    	<span><i class="fa fa-envelope pad-r-5"></i>{{ $user->email }}</span>
 							    </div>
 								<div class="col-md-2">
-							    	<p>{{ ucfirst(implode(' ', explode('_', $product->condition))) }}</p>
+							    	<span><i class="fa fa-phone pad-r-5"></i>{{ $user->mobile_phone or '--' }}</span>
 							    </div>
 							    <div class="col-md-4">
-							    	<span>{{ getStatus()[$product->status] }}</span>
-							    	<span class="pull-right">{{ getCategories()[$product->category] }}</span>
+							    	<span title="{{ $user->confirmed ? 'confirmed': 'Not confirmed' }}"><i class="fa fa-{{ $user->confirmed ? 'check text-success': 'times text-danger' }}"></i></span>
+							    	<span title="{{ $user->is_admin ? 'admin': 'not admin' }}" class="pull-right"><i class="fa fa-{{ $user->is_admin ? 'check text-success': 'times text-danger' }}"></i></span>
+							    	{{-- <span class="pull-right">{{ getCategories()[$user->category] }}</span> --}}
 							    </div>
 						    </a>
 					    </div>
 					    <div class="col-md-2">
 					    	<div class="pull-right">
-						    	<a href="{{ route('admin.products.edit', $product->product_slug) }}" class="btn btn-xs" type="button" title="edit"><i class="fa fa-edit"></i></a>
-						    	{!! getDeleteForm(route('admin.products.destroy', $product->id), 'Delete product?', 'Are you sure you want to delete this product', 'btn btn-flat ink-reaction text-warning', 'fa fa-archive') !!}
+						    	<a href="{{ route('admin.users.edit', $user->slug) }}" class="btn btn-xs" type="button" title="edit"><i class="fa fa-edit"></i></a>
+						    	{!! getDeleteForm(route('admin.users.destroy', $user->id), 'Delete user?', 'Are you sure you want to delete this user', 'btn btn-flat ink-reaction text-warning', 'fa fa-archive') !!}
 						    </div>
 					    </div>
 					</div>
@@ -97,8 +70,8 @@
 
 		@endforelse
 
-		{{ $products->appends(['q' => $q, 'condition' => $condition, 'category' => $category, 'status' => $status, 'price' => $price, 'negotiable' => $negotiable, 'discount' => $discount, 'home_delivery' => $home_delivery, 'featured' => $featured, 'sort' => $sort])->links() }}
-        {{-- {{ $products->appends(request()->query())->links() }} --}}
+		{{ $users->appends(['q' => $q, 'confirmed' => $confirmed, 'admin' => $admin, 'sort' => $sort])->links() }}
+        {{-- {{ $users->appends(request()->query())->links() }} --}}
 	</div>
 
 	{{-- modal for confirming --}}

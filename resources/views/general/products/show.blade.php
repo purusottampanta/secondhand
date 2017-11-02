@@ -13,27 +13,51 @@
 @section('content')
 	<div class="container">
 		<div class="row">
+			<div class="col-md-12">
+				<div class="bg-white pad-10 border-round">
+					<i class="fa fa-chevron-right pad-r-5"></i><a href="{{ route('welcome') }}">Home</a>
+					<i class="fa fa-chevron-right pad-r-5"></i><a href="{{ route('general.category', $product->category) }}">{{ getCategories()[$product->category] }}</a>
+				</div>
+			</div>
+			<div class="col-md-8">
+				<div class="bg-white border-round">
+					{{-- <div class="pull-left"> --}}
+						<h3 class="pad-10"><strong>{{ $product->product_name }}</strong></h3>
+					{{-- </div> --}}
+				</div>
+			</div>
+		</div>
+		<div class="row">
 			<div class="col-md-8">
 				<div class="row">
 					<div class="col-md-12">
 						<div class="panel panel-info">
 						  	<div class="panel-heading">General details</div>
 						  	<div class="panel-body">
-						    	<div class="col-md-3">
+						    	{{-- <div class="col-md-3"> --}}
 						    		<table class="table table-responsive borderless">
 							    		<tr>
 							    			<td>
 							    				Ad id:
+							    			</td>
+							    			<td>
+							    				{{ $product->id }}
 							    			</td>
 							    		</tr>
 							    		<tr>
 							    			<td>
 							    				Ad views:
 							    			</td>
+							    			<td>
+							    				{{ $product->views }}
+							    			</td>
 							    		</tr>
 							    		<tr>
 							    			<td>
 							    				Ad post date:
+							    			</td>
+							    			<td>
+							    				{{ $product->created_at->format('d-m-Y') }}
 							    			</td>
 							    		</tr>
 							    		@if($product->expiresAt())
@@ -41,10 +65,13 @@
 								    			<td>
 								    				Ad expiry date:
 								    			</td>
+								    			<td>
+								    				{{ $product->expiresAt()['date']->format('d-m-Y') }} (in {{ $product->expiresAt()['duration'] }} {{ str_plural('day', $product->expiresAt()['duration']) }})
+								    			</td>
 								    		</tr>
 							    		@endif
 							    	</table>
-						    	</div>
+						    	{{-- </div>
 						    	<div class="col-md-6">
 						    		<table class="table table-responsive borderless">
 							    		<tr>
@@ -70,7 +97,7 @@
 								    		</tr>
 							    		@endif
 							    	</table>
-						    	</div>
+						    	</div> --}}
 						  	</div>
 						</div>
 					</div>
@@ -80,25 +107,34 @@
 						<div class="panel panel-info">
 						  	<div class="panel-heading">Pricing details</div>
 						  	<div class="panel-body">
-						    	<div class="col-md-3">
+						    	{{-- <div class="col-md-3"> --}}
 						    		<table class="table table-responsive borderless">
 							    		<tr>
 							    			<td>
 							    				Price:
+							    			</td>
+							    			<td>
+							    				Rs. {{ $product->price }}
 							    			</td>
 							    		</tr>
 							    		<tr>
 							    			<td>
 							    				Price negotiable:
 							    			</td>
+							    			<td>
+							    				{{ $product->is_negotiable ? 'Yes' : 'No'  }}
+							    			</td>
 							    		</tr>
 							    		<tr>
 							    			<td>
 							    				Condition:
 							    			</td>
+							    			<td>
+							    				{{ ucfirst(implode(' ', explode('_', $product->condition))) }}
+							    			</td>
 							    		</tr>
 							    	</table>
-						    	</div>
+						    	{{-- </div>
 						    	<div class="col-md-6">
 						    		<table class="table table-responsive borderless">
 							    		<tr>
@@ -117,7 +153,7 @@
 							    			</td>
 							    		</tr>
 							    	</table>
-						    	</div>
+						    	</div> --}}
 						  	</div>
 						</div>
 					</div>
@@ -127,11 +163,14 @@
 						<div class="panel panel-info">
 						  	<div class="panel-heading">Delivery details</div>
 						  	<div class="panel-body">
-						    	<div class="col-md-3">
+						    	{{-- <div class="col-md-3"> --}}
 						    		<table class="table table-responsive borderless">
 							    		<tr>
 							    			<td>
 							    				Home delivery:
+							    			</td>
+							    			<td>
+							    				{{ $product->home_delivery ? 'Yes' : 'No' }}
 							    			</td>
 							    		</tr>
 							    		@if($product->home_delivery)
@@ -139,10 +178,13 @@
 								    			<td>
 								    				Delivery Price:
 								    			</td>
+								    			<td>
+								    				Rs. {{ $product->delivery_charge }}
+								    			</td>
 								    		</tr>
 							    		@endif
 							    	</table>
-						    	</div>
+						    	{{-- </div>
 						    	<div class="col-md-6">
 						    		<table class="table table-responsive borderless">
 							    		<tr>
@@ -158,7 +200,7 @@
 								    		</tr>
 							    		@endif
 							    	</table>
-						    	</div>
+						    	</div> --}}
 						  	</div>
 						</div>
 					</div>
@@ -168,9 +210,9 @@
 						<div class="panel panel-info">
 						  	<div class="panel-heading">Description</div>
 						  	<div class="panel-body">
-						    	<div class="col-md-11">
+						    	{{-- <div class="col-md-12"> --}}
 						    		{{ $product->description }}
-						    	</div>
+						    	{{-- </div> --}}
 						  	</div>
 						</div>
 					</div>

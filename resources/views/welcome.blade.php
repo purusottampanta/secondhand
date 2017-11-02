@@ -31,14 +31,14 @@
                                 @forelse($featured->chunk(3) as $index => $chunked_featured)
                                     <div class="row" style="border-bottom: 1px solid #bce8f1;">
                                         @foreach($chunked_featured as $key => $featured_ad)
-                                            <div class="col-md-4 pad-b-20" style="border-right: 1px solid #bce8f1;">
+                                            <div class="col-md-4 pad-b-20" style="border-right: 1px solid #bce8f1; min-height: 21.7em">
                                                 <a href="{{ route('general.products.show', ['category' => $featured_ad->category, 'slug'=> $featured_ad->product_slug]) }}">
                                                     <div class="row pad-b-20">
                                                         <div class="pad-10">
-                                                            <img src="{{ $featured_ad->images->first()->smallThumbnail() }}" height="100%" width="100%">
+                                                            <img src="{{ $featured_ad->images->first() ? $featured_ad->images->first()->smallThumbnail() : '' }}" height="100%" width="100%" alt="{{ $featured_ad->product_name }}">
                                                         </div>
                                                         <div class="pad-10 text-center">
-                                                            {{ $featured_ad->product_name }}
+                                                            {{ str_limit($featured_ad->product_name, 40) }}
                                                             <br>
                                                             Rs. {{ $featured_ad->price }}
                                                             <br>
@@ -48,7 +48,7 @@
                                                 </a>
                                                 @if($index == 2 && $key == 8)
                                                     <div class="pull-right" style="position: absolute; bottom: .5em; right: 0.5em">
-                                                        <a href=""><i class="fa fa-chevron-circle-right pad-r-5"></i>view more</a>
+                                                        <a href="{{ route('featured') }}"><i class="fa fa-chevron-circle-right pad-r-5"></i>view more</a>
                                                     </div>
                                                 @endif
                                             </div>
@@ -61,7 +61,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6" style="padding-bottom: -10px !important">
                     <div class="row">
                         <div class="panel panel-info">
                             <div class="panel-heading">New Arrivals</div>
@@ -70,14 +70,14 @@
                                     @forelse($products->chunk(3) as $index => $chunked_products)
                                         <div class="row" style="border-bottom: 1px solid #bce8f1;">
                                             @foreach($chunked_products as $key => $product)
-                                                <div class="col-md-4 pad-b-20" style="border-right: 1px solid #bce8f1;">
+                                                <div class="col-md-4 pad-b-20" style="border-right: 1px solid #bce8f1; min-height: 21.7em">
                                                     <a href="{{ route('general.products.show', ['category' => $product->category, 'slug'=> $product->product_slug]) }}">
                                                         <div class="row pad-b-20">
                                                             <div class="pad-10">
-                                                                <img src="{{ $product->images->first()->smallThumbnail() }}" height="100%" width="100%">
+                                                                <img src="{{ $product->images->first() ? $product->images->first()->smallThumbnail() : '' }}" height="100%" width="100%" alt="{{ $product->product_name }}">
                                                             </div>
-                                                            <div class="pad-10 text-center">
-                                                                {{ $product->product_name}}
+                                                            <div class="pad-5 text-center">
+                                                                {{ str_limit($product->product_name, 40) }}
                                                                 <br>
                                                                 Rs. {{ $product->price }}
                                                                 <br>
@@ -87,7 +87,7 @@
                                                     </a>
                                                     @if($index == 2 && $key == 8)
                                                         <div class="pull-right" style="position: absolute; bottom: .5em; right: 0.5em">
-                                                            <a href=""><i class="fa fa-chevron-circle-right pad-r-5"></i>view more</a>
+                                                            <a href="{{ route('recent') }}"><i class="fa fa-chevron-circle-right pad-r-5"></i>view more</a>
                                                         </div>
                                                     @endif
                                                 </div>

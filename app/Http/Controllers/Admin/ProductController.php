@@ -70,9 +70,11 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
-        //
+        $product = $this->productRepo->requiredBySlug($slug)->load('images');
+
+        return view('admin.products.show', compact('product'));
     }
 
     /**
@@ -115,5 +117,18 @@ class ProductController extends Controller
         $this->productRepo->requiredById($id)->delete();
 
         return back()->withStatus('Product successfully deleted');
+    }
+
+    public function updateStatus(Request $request, $id)
+    {
+        if(!$request->has('status')){
+            return back()->withErrors(['status' => 'Status field is required'])->withError('Status field is required');
+        }
+
+        $product = $this->productRepo->requiredById($id);
+
+        $product->update(['status' => $request->status]);
+
+        return back()->withStatus('Product status updated');
     }
 }

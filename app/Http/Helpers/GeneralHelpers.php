@@ -94,3 +94,29 @@ function getCategories()
 		'others' => 'Others'
 	];
 }
+
+function getStatus()
+{
+	return [
+		'sell_request' => 'Request to sell',
+		'bought' => 'Bought by admin',
+		'listed_for_sell' => 'Listed for sell',
+		'booked' => 'Booked',
+		'sold' => 'Sold',
+	];
+}
+
+function getStatusColor($status)
+{
+	if($status == 'sell_request'){
+		return 'bg-warning';
+	}elseif ($status == 'listed_for_sell') {
+		return 'bg-info';
+	}elseif ($status == 'booked') {
+		return 'bg-primary';
+	}elseif ($status == 'sold') {
+		return 'bg-success';
+	}else{
+		return '';
+	}
+}

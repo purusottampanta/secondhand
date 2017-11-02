@@ -79,7 +79,7 @@
                             <label for="phone" class="col-md-4 control-label">Phone</label>
 
                             <div class="col-md-6">
-                                <input id="phone" type="phone" class="form-control" name="phone">
+                                <input id="phone" type="text" class="form-control" name="phone" value="{{ old('phone') }}">
 
                                 @if ($errors->has('phone'))
                                     <span class="help-block">
@@ -93,7 +93,7 @@
                             <label for="mobile_phone" class="col-md-4 control-label">Mobile Phone</label>
 
                             <div class="col-md-6">
-                                <input id="mobile_phone" type="mobile_phone" class="form-control" name="mobile_phone" required>
+                                <input id="mobile_phone" type="text" class="form-control" name="mobile_phone" required value="{{ old('mobile_phone') }}">
 
                                 @if ($errors->has('mobile_phone'))
                                     <span class="help-block">
@@ -107,7 +107,7 @@
                             <label for="street" class="col-md-4 control-label">Address 1 (Street name)</label>
 
                             <div class="col-md-6">
-                                <input id="street" type="street" class="form-control" name="street" required>
+                                <input id="street" type="text" class="form-control" name="street" required value="{{ old('street') }}">
 
                                 @if ($errors->has('street'))
                                     <span class="help-block">
@@ -121,7 +121,7 @@
                             <label for="area_location" class="col-md-4 control-label">Address 2 (Area location)</label>
 
                             <div class="col-md-6">
-                                <input id="area_location" type="area_location" class="form-control" name="area_location" required>
+                                <input id="area_location" type="text" class="form-control" name="area_location" required value="{{ old('area_location') }}">
 
                                 @if ($errors->has('area_location'))
                                     <span class="help-block">
@@ -135,7 +135,7 @@
                             <label for="city" class="col-md-4 control-label">Address 3 (City Name)</label>
 
                             <div class="col-md-6">
-                                <input id="city" type="city" class="form-control" name="city" required>
+                                <input id="city" type="text" class="form-control" name="city" required value="{{ old('city') }}">
 
                                 @if ($errors->has('city'))
                                     <span class="help-block">

@@ -40,7 +40,12 @@
 <div class="container">
 	<div class="content">
 		<div class="title">
-			{{ $message }}
+			@if($exception)
+				{{ $exception->getMessage() }}
+
+			@else
+				{{ $message }}
+			@endif
 		</div>
 		<a class="btn btn-success" href="{{ url()->previous() }}">
 			Go Back
