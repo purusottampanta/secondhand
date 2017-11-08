@@ -37,10 +37,10 @@
             <li class="active"><a href="{{ route('admin.dashboard') }}"><i class="fa fa-circle-o"></i> Dashboard</a></li>
           </ul> --}}
         </li>
-        <li class="treeview">
-          <a href="#">
+        <li class="treeview {{ set_active('admin/users') }}">
+          <a href="#" class="{{ set_active('admin/users') }}">
             <i class="fa fa-users"></i>
-            <span>Users</span>
+            <span class="{{ set_active('admin/users') }}">Users</span>
            {{--  <span class="pull-right-container">
               <span class="label label-primary pull-right">4</span>
             </span> --}}
@@ -49,8 +49,8 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="{{ route('admin.users.index') }}"><i class="fa fa-circle-o"></i> All users</a></li>
-            <li><a href="{{ route('admin.users.create') }}"><i class="fa fa-circle-o"></i> Add new</a></li>
+            <li class="{{ setActive('admin.users.index') }}"><a href="{{ route('admin.users.index') }}"><i class="fa fa-circle-o"></i> All users</a></li>
+            <li class="{{ setActive('admin.users.create') }}"><a href="{{ route('admin.users.create') }}"><i class="fa fa-circle-o"></i> Add new</a></li>
           </ul>
         </li>
         {{-- <li>
@@ -75,6 +75,17 @@
             {{-- <li><a href="pages/charts/flot.html"><i class="fa fa-circle-o"></i> Flot</a></li>
             <li><a href="pages/charts/inline.html"><i class="fa fa-circle-o"></i> Inline charts</a></li> --}}
           </ul>
+        </li>
+        <li class="{{ setActive('admin.sliders.index') }}">
+          <a href="{{ route('admin.sliders.index') }}">
+            <i class="fa fa-sliders"></i> <span>Sliders</span>
+            {{-- <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span> --}}
+          </a>
+{{--           <ul class="treeview-menu">
+            <li class="active"><a href="{{ route('admin.dashboard') }}"><i class="fa fa-circle-o"></i> Dashboard</a></li>
+          </ul> --}}
         </li>
         {{-- <li class="treeview">
           <a href="#">

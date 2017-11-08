@@ -60,7 +60,7 @@
 							    				{{ $product->created_at->format('d-m-Y') }}
 							    			</td>
 							    		</tr>
-							    		@if($product->expiresAt())
+							    		{{-- @if($product->expiresAt())
 											<tr>
 								    			<td>
 								    				Ad expiry date:
@@ -69,7 +69,7 @@
 								    				{{ $product->expiresAt()['date']->format('d-m-Y') }} (in {{ $product->expiresAt()['duration'] }} {{ str_plural('day', $product->expiresAt()['duration']) }})
 								    			</td>
 								    		</tr>
-							    		@endif
+							    		@endif --}}
 							    	</table>
 						    	{{-- </div>
 						    	<div class="col-md-6">

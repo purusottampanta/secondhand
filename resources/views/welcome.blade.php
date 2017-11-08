@@ -1,5 +1,10 @@
 @extends('layouts.app')
 
+@section('stylesheet')
+@parent
+<link rel="stylesheet" href="{{ asset('lib/jcarousel/jcarousel.responsive.css') }}">
+@endsection
+
 @section('content')
     <div class="container">
         <div class="row">
@@ -9,9 +14,86 @@
          YOU BUY WE SELL</h3>
                 </div>
                 <div class="panel-body">
-                    <p>
-                        <a href="http://ktmsecondhand.com/">http://ktmsecondhand.com/</a> is FREE online classified which enables individuals as well as companies to list wide variety of new or used product online. We at <a href="http://ktmsecondhand.com/">ktmsecondhand.com</a> believe that Internet is a great promotional vehicle as well as communication channel for connecting buyers and sellers. <a href="http://ktmsecondhand.com/">Ktmsecondhand.com</a> is perfect solution which helps to list your products for free.
-                    </p>
+                    <div class="jcarousel-wrapper">
+                        <div class="jcarousel">
+                            <ul>
+                                {{-- <li><a href="https://sorgalla.com/jcarousel/examples/_shared/img/img1.jpg"><img src="https://sorgalla.com/jcarousel/examples/_shared/img/img1.jpg" alt="Image 1"></a></li>
+                                <li><a href="https://sorgalla.com/jcarousel/examples/_shared/img/img2.jpg"><img src="https://sorgalla.com/jcarousel/examples/_shared/img/img2.jpg" alt="Image 2"></a></li>
+                                <li><a href="https://sorgalla.com/jcarousel/examples/_shared/img/img3.jpg"><img src="https://sorgalla.com/jcarousel/examples/_shared/img/img3.jpg" alt="Image 3"></a></li>
+                                <li><img src="https://sorgalla.com/jcarousel/examples/_shared/img/img4.jpg" alt="Image 4"></li> --}}
+                                {{-- <li><img src="https://sorgalla.com/jcarousel/examples/_shared/img/img5.jpg" alt="Image 5"></li>
+                                <li><img src="https://sorgalla.com/jcarousel/examples/_shared/img/img6.jpg" alt="Image 6"></li> --}}
+                                <?php $count_slider = $sliders->count();?>
+                                @forelse($sliders as $index => $slider)
+                                   <li>
+                                        <a href="{{ asset($slider->image_path) }}" target="_blank"> 
+                                            <img src="{{ $slider->thumbnail() }}" alt="{{ $slider->image_name }}">
+                                        </a>
+                                    </li>
+                                    @if($count_slider == 1)
+                                        <li>
+                                            <a href="{{ asset('img/sliders/slide2.jpg') }}" target="_blank">
+                                                <img src="{{ asset('img/sliders/slide2.jpg') }}" alt="slide2">
+                                            </a>
+                                        </li> 
+                                        <li>
+                                            <a href="{{ asset('img/sliders/slide3.jpg') }}" target="_blank">
+                                                <img src="{{ asset('img/sliders/slide3.jpg') }}" alt="slide3">
+                                            </a>
+                                        </li> 
+                                        <li>
+                                            <a href="{{ asset('img/sliders/slide4.jpg') }}" target="_blank">
+                                                <img src="{{ asset('img/sliders/slide4.jpg') }}" alt="slide4">
+                                            </a>
+                                        </li>
+                                    @elseif($count_slider == 2)
+                                        <li>
+                                            <a href="{{ asset('img/sliders/slide3.jpg') }}" target="_blank">
+                                                <img src="{{ asset('img/sliders/slide3.jpg') }}" alt="slide3">
+                                            </a>
+                                        </li> 
+                                        <li>
+                                            <a href="{{ asset('img/sliders/slide4.jpg') }}" target="_blank">
+                                                <img src="{{ asset('img/sliders/slide4.jpg') }}" alt="slide4">
+                                            </a>
+                                        </li>
+                                    @elseif($count_slider == 3)
+                                        <li>
+                                            <a href="{{ asset('img/sliders/slide4.jpg') }}" target="_blank">
+                                                <img src="{{ asset('img/sliders/slide4.jpg') }}" alt="slide4">
+                                            </a>
+                                        </li>
+                                    @endif
+                              @empty
+                                <li>
+                                    <a href="{{ asset('img/sliders/slide1.jpg') }}" target="_blank">
+                                        <img src="{{ asset('img/sliders/slide1.jpg') }}" alt="slide1">
+                                    </a>
+                                </li> 
+                                <li>
+                                    <a href="{{ asset('img/sliders/slide2.jpg') }}" target="_blank">
+                                        <img src="{{ asset('img/sliders/slide2.jpg') }}" alt="slide2">
+                                    </a>
+                                </li> 
+                                <li>
+                                    <a href="{{ asset('img/sliders/slide3.jpg') }}" target="_blank">
+                                        <img src="{{ asset('img/sliders/slide3.jpg') }}" alt="slide3">
+                                    </a>
+                                </li> 
+                                <li>
+                                    <a href="{{ asset('img/sliders/slide4.jpg') }}" target="_blank">
+                                        <img src="{{ asset('img/sliders/slide4.jpg') }}" alt="slide4">
+                                    </a>
+                                </li>
+                              @endforelse
+                            </ul>
+                        </div>
+
+                        <a href="#" class="jcarousel-control-prev">&lsaquo;</a>
+                        <a href="#" class="jcarousel-control-next">&rsaquo;</a>
+
+                        {{-- <p class="jcarousel-pagination"></p> --}}
+                    </div>
                 </div>
             </div>
         </div>
@@ -176,4 +258,11 @@
             </div> --}}
         </div>
     </div>
+@endsection
+
+@section('javascript')
+@parent
+    <script src="{{ asset('lib/jcarousel/jquery.jcarousel.min.js') }}"></script>
+    <script src="{{ asset('lib/jcarousel/jcarousel.responsive.js') }}"></script>
+
 @endsection

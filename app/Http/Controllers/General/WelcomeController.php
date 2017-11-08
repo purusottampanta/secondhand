@@ -5,16 +5,19 @@ namespace App\Http\Controllers\General;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\Eloquent\ProductRepository;
+use App\Repositories\Eloquent\SliderRepository;
 use App\Events\Product\ProductViewCounter;
 
 class WelcomeController extends Controller
 {
 
 	protected $productRepo;
+   protected $slider;
 
-   function __construct(ProductRepository $productRepo)
+   function __construct(ProductRepository $productRepo, SliderRepository $slider)
    {
    		$this->productRepo = $productRepo;
+         $this->slider = $slider;
    }
 
    public function index()
@@ -28,7 +31,9 @@ class WelcomeController extends Controller
                $q->oldest();
          }])->where('status', 'listed_for_sell')->where('is_featured', 1)->latest()->get()->take(9);
 
-   		return view('welcome', compact('featured', 'products'));
+         $sliders = $this->slider->sliderModel()->orderBy('position', 'ASC')->get();
+
+   		return view('welcome', compact('featured', 'products', 'sliders'));
    }
 
    public function showProduct($category, $product_slug)

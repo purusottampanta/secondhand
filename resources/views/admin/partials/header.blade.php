@@ -215,7 +215,7 @@
         <!-- User Account: style can be found in dropdown.less -->
         <li class="dropdown user user-menu">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+            <img src="{{ authUser()->profilePicture() }}" class="user-image" alt="User Image">
             <span class="hidden-xs">{{ authUser()->full_name }}</span>
           </a>
           <ul class="dropdown-menu">
@@ -225,7 +225,7 @@
 
               <p>
                 {{ authUser()->full_name }}
-                <small>Member since Nov. 2012</small>
+                <small>Member since:  {{ authUser()->created_at ? authUser()->created_at->format('M, Y') : '' }}</small>
               </p>
             </li>
             <!-- Menu Body -->

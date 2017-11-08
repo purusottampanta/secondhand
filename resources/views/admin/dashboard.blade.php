@@ -4,13 +4,13 @@
 	<!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Dashboard
+        Products
         <small>Control panel</small>
       </h1>
-      <ol class="breadcrumb">
+     {{--  <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="active">Dashboard</li>
-      </ol>
+      </ol> --}}
     </section>
 
     <!-- Main content -->
@@ -21,9 +21,9 @@
           <!-- small box -->
           <div class="small-box bg-aqua">
             <div class="inner">
-              <h3>150</h3>
+              <h3>{{ $products->where('status', 'booked')->count() }}</h3>
 
-              <p>New Orders</p>
+              <p>Booked</p>
             </div>
             <div class="icon">
               <i class="ion ion-bag"></i>
@@ -36,9 +36,12 @@
           <!-- small box -->
           <div class="small-box bg-green">
             <div class="inner">
-              <h3>53<sup style="font-size: 20px">%</sup></h3>
+              <h3>
+                {{ $products->where('status', 'sold')->count() }}
+                {{-- <sup style="font-size: 20px">%</sup> --}}
+              </h3>
 
-              <p>Bounce Rate</p>
+              <p>Sold</p>
             </div>
             <div class="icon">
               <i class="ion ion-stats-bars"></i>
@@ -51,9 +54,9 @@
           <!-- small box -->
           <div class="small-box bg-yellow">
             <div class="inner">
-              <h3>44</h3>
+              <h3>{{ $products->where('status', 'sell_request')->count() }}</h3>
 
-              <p>User Registrations</p>
+              <p>Sell Request</p>
             </div>
             <div class="icon">
               <i class="ion ion-person-add"></i>
@@ -66,9 +69,97 @@
           <!-- small box -->
           <div class="small-box bg-red">
             <div class="inner">
-              <h3>65</h3>
+              <h3>{{ $products->where('status', 'bought')->count() }}</h3>
 
-              <p>Unique Visitors</p>
+              <p>Bought by admin</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-pie-graph"></i>
+            </div>
+            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+        <!-- ./col -->
+          <div class="col-lg-3 col-xs-6">
+            <!-- small box -->
+            <div class="small-box bg-primary">
+              <div class="inner">
+                <h3>{{ $products->where('status', 'listed_for_sell')->count() }}</h3>
+
+                <p>Listed for sell</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-pie-graph"></i>
+              </div>
+              <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+      </div>
+      <!-- /.row -->
+      <section class="content-header">
+        <h1>
+          Users
+          {{-- <small>Control panel</small> --}}
+        </h1>
+      </section>
+      <!-- Small boxes (Stat box) -->
+      <div class="row">
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-aqua">
+            <div class="inner">
+              <h3>{{ $users->count() }}</h3>
+
+              <p>Registered users</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-bag"></i>
+            </div>
+            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-green">
+            <div class="inner">
+              <h3>
+                {{ $users->where('confirmed', 1)->count() }}
+                {{-- <sup style="font-size: 20px">%</sup> --}}
+              </h3>
+
+              <p>Confirmed users</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-stats-bars"></i>
+            </div>
+            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-yellow">
+            <div class="inner">
+              <h3>{{ $users->where('is_admin', 1)->count() }}</h3>
+
+              <p>Admin users</p>
+            </div>
+            <div class="icon">
+              <i class="ion ion-person-add"></i>
+            </div>
+            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-red">
+            <div class="inner">
+              <h3>{{ $users->where('confirmed', 0)->count() }}</h3>
+
+              <p>Un-confirmed users</p>
             </div>
             <div class="icon">
               <i class="ion ion-pie-graph"></i>

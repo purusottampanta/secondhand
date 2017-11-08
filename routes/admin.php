@@ -14,6 +14,7 @@ Route::post('/products/statusUpdate/{product}', [
 	'uses' => 'ProductController@updateStatus',
 ]);
 Route::resource('products', 'ProductController', ['as' => 'admin']);
+Route::resource('sliders', 'SliderController', ['as' => 'admin']);
 Route:: get('/sellRequest', [
 	'as' => 'admin.users.sellRequest',
 	'uses' => 'UserController@getSellRequest',

@@ -29,7 +29,7 @@
 @section('content')
 	<div class="col-md-12">
 		<h2>Products</h2>
-		<div class="row mar-5">
+		<div class="row mar-5 hidden-xs">
 			<div class="media pad-10 bg-info">
 				<div class="media-left">
 					<span>Image</span>
@@ -60,14 +60,14 @@
 		@forelse($products as $key => $product)
 			<div class="row mar-5">
 				<div class="media pad-10 {{ getStatusColor($product->status) }}">
-					<div class="media-left">
+					<div class="media-left hidden-xs">
 					    <a href="{{ route('admin.products.show', $product->product_slug) }}">
-					      <img class="media-object" src="{{ $product->images->first()->smallThumbnail() }}" alt="{{ $product->product_name }}" height="50%" class="img-responsive">
+					      <img class="media-object" src="{{ $product->images->first() ? $product->images->first()->smallThumbnail() : asset('img/sliders/slide4.jpg') }}" alt="{{ $product->product_name }}" height="50%" class="img-responsive">
 					    </a>
 					</div>
 					<div class="media-body">
 					    <div class="col-md-10">
-					    	<a href="{{ route('admin.products.show', $product->product_slug) }}" style="{{ getStatusColor($product->status) == 'bg-primary' ? 'color:#000000' : '' }}">
+					    	<a href="{{ route('admin.products.show', $product->product_slug) }}" style="{{ getStatusColor($product->status) == 'bg-primary' ? 'color:#000000' : '' }}" class="hidden-xs">
 						    	<div class="col-md-3">
 						    		<h4 class="media-heading">{{ $product->product_name }}</h4>
 						    	</div>
@@ -83,8 +83,35 @@
 							    	<span class="pull-right">{{ getCategories()[$product->category] }}</span>
 							    </div>
 						    </a>
+						    <div class="hidden-md hidden-sm hidden-lg">
+						    	<a href="{{ route('admin.products.show', $product->product_slug) }}" class="text-lg">{{ $product->product_name }}</a>
+						    	<br>
+						    	<small>
+						    		<strong>Category: </strong>
+						    		<span class="pad-l-10">{{ getCategories()[$product->category] }}</span>
+						    	</small>
+								<br>
+						    	<small>
+						    		<strong>Date: </strong>
+						    		<span class="pad-l-10">{{ $product->created_at->format('d-m-y') }}</span>
+						    	</small>
+						    	<small>
+						    		<span class="pull-right"><strong> <span class="pad-r-10">Price:</span></strong><i class="pad-r-5">Rs.</i>{{ $product->price }}</span>
+						    	</small>
+								<div class="row pad-l-10">
+									{{-- <small>
+										<a href="{{ route('admin.products.edit', $product->product_slug) }}"><u>Edit Ad</u>
+										</a>
+									</small> --}}
+									<small class="text-info pad-l-5"><u>{{ getStatus()[$product->status] }}</u></small>
+									<small class="text-info pad-l-5"><u>{{ ucfirst(implode(' ', explode('_', $product->condition))) }}</u></small>
+									<span class="text-info pad-l-5"><i class="fa fa-eye pad-r-5"></i>{{ $product->views }}</span>
+									<a href="{{ route('admin.products.edit', $product->product_slug) }}" class="btn btn-xs" type="button" title="edit"><i class="fa fa-edit"></i></a>
+						    	{!! getDeleteForm(route('admin.products.destroy', $product->id), 'Delete product?', 'Are you sure you want to delete this product', 'btn btn-flat ink-reaction text-warning', 'fa fa-archive') !!}
+								</div>
+						    </div>
 					    </div>
-					    <div class="col-md-2">
+					    <div class="col-md-2 hidden-xs">
 					    	<div class="pull-right">
 						    	<a href="{{ route('admin.products.edit', $product->product_slug) }}" class="btn btn-xs" type="button" title="edit"><i class="fa fa-edit"></i></a>
 						    	{!! getDeleteForm(route('admin.products.destroy', $product->id), 'Delete product?', 'Are you sure you want to delete this product', 'btn btn-flat ink-reaction text-warning', 'fa fa-archive') !!}
