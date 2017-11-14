@@ -13,6 +13,7 @@ class WelcomeController extends Controller
 
 	protected $productRepo;
    protected $slider;
+   protected $status = ['listed_for_sell', 'booked', 'sold'];
 
    function __construct(ProductRepository $productRepo, SliderRepository $slider)
    {
@@ -23,13 +24,21 @@ class WelcomeController extends Controller
    public function index()
    {
 
-   		$products = $this->productRepo->productModel()->with(['images' => function($q){
+   		// $products = $this->productRepo->productModel()->with(['images' => function($q){
+     //        $q->oldest();
+     //     }])->where('status', 'listed_for_sell')->where('is_featured', 0)->latest()->get()->take(12);
+
+     //     $featured = $this->productRepo->productModel()->with(['images' => function($q){
+     //           $q->oldest();
+     //     }])->where('status', 'listed_for_sell')->where('is_featured', 1)->latest()->get()->take(12);
+
+         $products = $this->productRepo->productModel()->with(['images' => function($q){
    			$q->oldest();
-   		}])->where('status', 'listed_for_sell')->latest()->get()->take(9);
+   		}])->whereIn('status', $this->status)->where('is_featured', 0)->latest()->get()->take(4);
 
    		$featured = $this->productRepo->productModel()->with(['images' => function($q){
                $q->oldest();
-         }])->where('status', 'listed_for_sell')->where('is_featured', 1)->latest()->get()->take(9);
+         }])->whereIn('status', $this->status)->where('is_featured', 1)->latest()->get()->take(4);
 
          $sliders = $this->slider->sliderModel()->orderBy('position', 'ASC')->get();
 
@@ -39,17 +48,24 @@ class WelcomeController extends Controller
    public function showProduct($category, $product_slug)
    {
       $product = $this->productRepo->requiredBySlug($product_slug);
+      $similar_products = $this->productRepo->productModel()->with(['images' => function($q){
+            $q->oldest();
+         }])->whereIn('status', $this->status)->where('category', $product->category)->where('id', '!=', $product->id)->latest()->limit(4)->get();
+
+      $popular_products = $this->productRepo->productModel()->with(['images' => function($q){
+            $q->oldest();
+         }])->whereIn('status', $this->status)->where('id', '!=', $product->id)->orderBy('views', 'desc')->limit(6)->get();
 
       event(new ProductViewCounter($product));
 
-      return view('general.products.show', compact('product'));
+      return view('general.products.show', compact('product', 'similar_products', 'popular_products'));
    }
 
    public function productByCategory($category)
    {
       $products = $this->productRepo->productModel()->with(['images' => function($q){
             $q->oldest();
-         }])->where('status', 'listed_for_sell')->where('category', $category)->latest()->paginate(30);
+         }])->whereIn('status', $this->status)->where('category', $category)->latest()->paginate(20);
 
       return view('general.products.bycategory', compact('products', 'category'));
    }
@@ -60,11 +76,11 @@ class WelcomeController extends Controller
 
          $products = $this->productRepo->productModel()->with(['images' => function($q){
                $q->oldest();
-         }])->where('status', 'listed_for_sell')->where('is_featured', 1)->latest()->paginate(30);
+         }])->whereIn('status', $this->status)->where('is_featured', 1)->latest()->paginate(20);
       }else{
          $products = $this->productRepo->productModel()->with(['images' => function($q){
             $q->oldest();
-         }])->where('status', 'listed_for_sell')->latest()->paginate(30);
+         }])->whereIn('status', $this->status)->where('is_featured', 0)->latest()->paginate(20);
       }
 
       return view('general.products.featured-or-recent', compact('products'));

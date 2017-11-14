@@ -214,7 +214,7 @@
 	color: inherit !important;
 }
 
-.text-xs{
+.text-md{
 	font-size: 13px !important;
 }
 
@@ -237,3 +237,42 @@
 .text-xs{
 	font-size: 10px !important;
 }
+
+.nav .active{
+	background-color: #2577dc;
+}
+.nav .active a{
+	color: #ffffff !important;
+}
+
+@media all and (min-width: 700px)
+{
+    .welcome_page_images
+    {
+        height: 15em;
+    }
+}
+
+@media (max-width: 1000px) and (min-width: 700px)
+{
+    .welcome_page_images
+    {
+        height: 19em;
+    }
+}
+
+@media (min-width: 700px) and (max-width: 765px)
+{
+    .welcome_page_images
+    {
+        height: 21em;
+    }
+
+    .welcome_page_images img{
+    	height: 50%;
+    	width: 70%;
+    }
+}
+
+
+

@@ -119,7 +119,7 @@
 				<div class="row">
 					<div class="col-md-12 form-group{{ $errors->has('is_negotiable') ? ' has-error' : '' }}">
 						<div class="col-md-6 col-md-offset-3">
-							<input type="checkbox" name="is_negotiable" id="is_negotiable" value="1" style="height: 20px; width: 20px" {{ $product->is_negotiable ? ($product->is_negotiable ? 'checked' : '') : (old('is_negotiable') == 1 ? 'checked' : '') }}>
+							<input type="checkbox" name="is_negotiable" id="is_negotiable" style="height: 20px; width: 20px" {{ $product->is_negotiable ? ($product->is_negotiable ? 'checked' : '') : (old('is_negotiable') == 1 ? 'checked' : '') }}>
 							<label for="is_negotiable" class="control-label mar-l-10">Price negotiable ?</label>
 						</div>
 					</div>
@@ -127,7 +127,7 @@
 				<div class="row">
 					<div class="col-md-12 form-group{{ $errors->has('is_featured') ? ' has-error' : '' }}">
 						<div class="col-md-6 col-md-offset-3">
-							<input type="checkbox" name="is_featured" id="is_featured" value="1" style="height: 20px; width: 20px" {{ $product->is_featured ? ($product->is_featured ? 'checked' : '') : (old('is_featured') == 1 ? 'checked' : '') }}>
+							<input type="checkbox" name="is_featured" id="is_featured" style="height: 20px; width: 20px" {{ $product->is_featured ? ($product->is_featured ? 'checked' : '') : (old('is_featured') == 1 ? 'checked' : '') }}>
 							<label for="is_featured" class="control-label mar-l-10">Featured product ?</label>
 						</div>
 					</div>
@@ -135,7 +135,7 @@
 				<div class="row">
 					<div class="col-md-12 form-group{{ $errors->has('home_delivery') ? ' has-error' : '' }}">
 						<div class="col-md-6 col-md-offset-3">
-							<input type="checkbox" name="home_delivery" id="home_delivery" value="1" style="height: 20px; width: 20px" {{ $product->home_delivery ? ($product->home_delivery ? 'checked' : '') : (old('home_delivery') == 1 ? 'checked' : '') }}>
+							<input type="checkbox" name="home_delivery" id="home_delivery" style="height: 20px; width: 20px" {{ $product->home_delivery ? ($product->home_delivery ? 'checked' : '') : (old('home_delivery') == 1 ? 'checked' : '') }}>
 							<label for="home_delivery" class="control-label mar-l-10">Home delivery available ?</label>
 						</div>
 					</div>

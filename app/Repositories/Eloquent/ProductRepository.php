@@ -71,6 +71,24 @@ class ProductRepository extends Repository
 			$input['status'] = 'sell_request';
 		}
 
+		if($request->is_featured == 'on'){
+			$input['is_featured'] = 1;
+		}else{
+			$input['is_featured'] = 0;
+		}
+
+		if($request->is_negotiable == 'on'){
+			$input['is_negotiable'] = 1;
+		}else{
+			$input['is_negotiable'] = 0;
+		}
+
+		if($request->home_delivery == 'on'){
+			$input['home_delivery'] = 1;
+		}else{
+			$input['home_delivery'] = 0;
+		}
+
     	$product->update($input);
 
 
