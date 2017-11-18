@@ -63,7 +63,7 @@
     <div class="header-top">
         <div class="container">
              <div class="top-left">
-                <a href="#"> Help  <i class="glyphicon glyphicon-phone" aria-hidden="true"></i> +977 985-1234047</a>
+                <a href="#"> Help  <i class="fa fa-phone fa-5x"></i> +977 985-1234047</a>
             </div>
             <div class="top-right">
             <ul>

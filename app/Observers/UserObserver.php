@@ -46,6 +46,6 @@ class UserObserver
      */
     public function updating(User $user)
     {
-        $user->buildLog();
+        // $user->buildLog();
     }
 }

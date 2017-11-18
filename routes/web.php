@@ -13,6 +13,9 @@
 Route::get('auth/confirm/{confirmation_code}', 'Auth\RegisterController@getConfirm')->name('auth.confirm');
 Route::get('auth/resend', 'Auth\LoginController@getResend');
 
+Route::get('/redirect/{provider}', 'Auth\Social\SocialAuthController@redirect');
+Route::get('/callback/{provider}', 'Auth\Social\SocialAuthController@callback');
+
 Route::group(['namespace' => 'General'], function(){
 	Route::get('/', [
 		'as' => 'welcome',
@@ -38,9 +41,14 @@ Route::group(['namespace' => 'General'], function(){
 		'as' => 'recent',
 		'uses' => 'WelcomeController@featuredOrRecentOnly',
 	]);
+
+	Route::get('/general/{product}/add-to-cart', [
+		'as' => 'general.products.addToCart',
+		'uses' => 'ShoppingController@addToCart',
+	]);
 });
 
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/home', 'HomeController@index')->name('home');

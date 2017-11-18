@@ -82,7 +82,13 @@
 						@endif
 							<p>{{ $product->is_negotiable ? 'Price can be negotiated.' : 'Fixed price' }}</p>
 						<div class="women">
-							<a href="#" data-text="Add To Cart" class="my-cart-b item_add">Buy now</a>
+							@if($product->status == 'listed_for_sell')
+								<a href="{{ route('general.products.addToCart', $product->id) }}" data-text="Add To Cart" class="my-cart-b item_add">Buy now</a>
+							@elseif($product->status == 'booked')
+								<p>Booked by someone else</p>
+							@elseif($product->status == 'sold')
+								<p>Product already sold</p>
+							@endif
 						</div>
 						<div class="social-icon">
 							<a href="https://www.facebook.com/secondhandshop.ktm/" target="_blank"><i class="icon"></i></a>
