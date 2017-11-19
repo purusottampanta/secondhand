@@ -11,6 +11,19 @@ class ProductPolicy
     use HandlesAuthorization;
 
     /**
+     * this method runs before all other
+     * @param  User   $user    
+     * @param   $ability 
+     * @return bool          
+     */
+    public function before(User $user, $ability)
+    {
+        if ($user->is_admin) {
+            return true;
+        }
+    }
+
+    /**
      * Determine whether the user can view the product.
      *
      * @param  \App\Models\User  $user
@@ -19,7 +32,7 @@ class ProductPolicy
      */
     public function view(User $user, Product $product)
     {
-        //
+        return ($user->id == $product->user_id && $product->status == 'sell_request') ? true : false;
     }
 
     /**
@@ -42,7 +55,7 @@ class ProductPolicy
      */
     public function update(User $user, Product $product)
     {
-        //
+        return ($user->id == $product->user_id && $product->status == 'sell_request') ? true : false;
     }
 
     /**
@@ -54,6 +67,6 @@ class ProductPolicy
      */
     public function delete(User $user, Product $product)
     {
-        //
+        return ($user->id == $product->user_id && $product->status == 'sell_request') ? true : false;
     }
 }

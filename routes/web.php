@@ -52,3 +52,31 @@ Route::group(['namespace' => 'General'], function(){
 Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');
+
+Route::group(['namespace' => 'Users', 'middleware' => 'auth', 'prefix' => 'users'], function(){
+	Route::get('/dashboard', [
+	'as' => 'users.dashboard',
+	'uses' => 'DashboardController@index',
+	]);
+	Route::get('/logout', [
+		'as' => 'users.logout',
+		'uses' => 'DashboardController@logout',
+	]);
+
+	Route::resource('products', 'ProductController', ['as' => 'users']);
+
+	Route::get('profile/{user}/edit', [
+		'as' => 'users.profile.edit',
+		'uses' => 'UserController@edit',
+	]);
+
+	Route::patch('profile/{user}', [
+		'as' => 'users.profile.update',
+		'uses' => 'UserController@update',
+	]);
+
+	// Route:: get('/sellRequest', [
+	// 	'as' => 'users.users.sellRequest',
+	// 	'uses' => 'UserController@getSellRequest',
+	// ]);
+});

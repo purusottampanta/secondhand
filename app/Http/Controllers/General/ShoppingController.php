@@ -16,17 +16,17 @@ class ShoppingController extends Controller
 	
 	function __construct(ProductRepository $productRepo)
 	{
-		// $this->middleware('auth');
+		$this->middleware('auth');
 		$this->productRepo = $productRepo;
 	}
 
-	public function addTocart(Request $request, $productId)
+	public function addToCart(Request $request, $productId)
 	{
 		dd($productId);
 		// if(auth()->check()){
 
 		// }else{
-		// 	session()->put('')
+		// 	session(['addToCart' => 'add-to-cart']);
 		// 	return view('general.shopping.guest-buyer');
 		// }
 	}

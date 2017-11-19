@@ -246,10 +246,10 @@
             <!-- Menu Footer-->
             <li class="user-footer">
               <div class="pull-left">
-                <a href="{{ route('admin.users.show', authUser()->slug) }}" class="btn btn-default btn-flat">Profile</a>
+                <a href="{{ route('users.profile.edit', authUser()->slug) }}" class="btn btn-default btn-flat">Profile</a>
               </div>
               <div class="pull-right">
-                <a href="{{ route('admin.logout') }}" class="btn btn-default btn-flat">Sign out</a>
+                <a href="{{ route('users.logout') }}" class="btn btn-default btn-flat">Sign out</a>
               </div>
             </li>
           </ul>

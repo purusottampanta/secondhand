@@ -69,13 +69,23 @@
             <ul>
                 {{-- <li><a href="checkout.html">Checkout</a></li> --}}
                 @if(auth()->check())
-                    <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" style="color: #ffffff">
-                        Logout
-                    </a>
+                    <li>
+                        <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" style="color: #ffffff">
+                            Logout
+                        </a>
 
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                        {{ csrf_field() }}
-                    </form>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            {{ csrf_field() }}
+                        </form>
+                    </li>
+                    <li>
+                        @if(authUser()->is_admin)
+                            <a href="{{ route('admin.dashboard') }}">Dashboard</a>
+                        @else
+                            <a href="{{ route('users.dashboard') }}">Dashboard</a>
+                        @endif
+                    </li>
+
                 @else
                     <li><a href="{{ route('login') }}">Login</a></li>
                     <li><a href="{{ route('register') }}"> Create Account </a></li>
