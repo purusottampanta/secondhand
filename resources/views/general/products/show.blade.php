@@ -1,5 +1,17 @@
 @extends('layouts.app')
 
+@section('meta-tag')
+	    <meta property="og:title" content="{{ $product->product_name }} | {{ getCategories()[$product->category] }} | Buy Sell used second hand furniture " />
+        <meta property="og:description" content="{{ $product->product_name }} | {{ getCategories()[$product->category] }} | You Sell We Buy You Buy We Sell | secondhand | furniture | office, home furniture | furniture prices| online shopping| home shopping" />
+        <meta property="og:image" content="{{ asset($product->images->first()->image_path) }}" />
+        <meta name="description" content="{{ $product->product_name }} | furniture stores | furniture price in nepal | {{ getCategories()[$product->category] }} | secondhand shop, used furniture, office, home, furniture | buy and sell | chair | sofa | bed | bookcase |office desk | online shopping | home shopping">
+        <meta name="keywords" content="furniture stores, furniture price, {{ $product->product_name }} , used furniture, office, home, furniture, {{ getCategories()[$product->category] }}, buy and sell, chair, sofa, bed, bookcase, office desk, online shopping, home shopping">
+@endsection
+
+@section('title')
+	{{ $product->product_name }} | {{ getCategories()[$product->category] }} | Buy Sell used second hand furniture | furniture price | 
+@endsection
+
 @section('stylesheet')
 @parent
 	<link rel="stylesheet" href="{{ asset('css/flexslider.css') }}" type="text/css" media="screen" />
@@ -69,7 +81,7 @@
 							</div>
 						@endif
 						<div class="color-quality">
-							<h6>Quality : <small>{{ getCategories()[$product->category] }}</small></h6>
+							<h6>Category : <small>{{ getCategories()[$product->category] }}</small></h6>
 						</div>
 						<div class="color-quality">
 							<h6>Condition : <small>{{ ucfirst(implode(' ', explode('_', $product->condition))) }}</small></h6>

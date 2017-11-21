@@ -7,10 +7,18 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta property="og:title"              content="When Great Minds Don’t Think Alike" />
-    <meta property="og:description"        content="How much does culture influence creative thinking?" />
-    <meta property="og:image"              content="http://static01.nyt.com/images/2015/02/19/arts/international/19iht-btnumbers19A/19iht-btnumbers19A-facebookJumbo-v2.jpg" />
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    @section('meta-tag')
+        <meta property="og:title" content="Buy Sell used second hand furniture" />
+        <meta property="og:description" content="You Sell We Buy You Buy We Sell | secondhand | furniture | office, home furniture | furniture prices| online shopping| home shopping" />
+        <meta property="og:image" content="{{ asset('img/sliders/slide1.jpg') }}" />
+        <meta name="description" content="furniture stores | furniture price in nepal | secondhand shop, used furniture, office, home, furniture | buy and sell | chair | sofa | bed | bookcase |office desk | online shopping | home shopping">
+        <meta name="keywords" content="furniture stores, furniture price, used furniture, office, home, furniture, buy and sell, chair, sofa, bed, bookcase, office desk, online shopping, home shopping">
+    @show
+    <title>
+        @section('title')
+            Buy Sell used second hand furniture | furniture store | furniture price | online shopping | home shopping
+        @show
+    </title>
     
     <!-- Styles -->
     @section('stylesheet')

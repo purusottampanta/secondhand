@@ -23,11 +23,11 @@ class ShoppingController extends Controller
 	public function addToCart(Request $request, $productId)
 	{
 		dd($productId);
-		// if(auth()->check()){
+		if(authUser()->incompleteProfile()){
+			session(['incompleteProfile' => 'incomplete profile buyer']);
+			return view('general.shopping.incomplete-profile-buyer');
+		}
 
-		// }else{
-		// 	session(['addToCart' => 'add-to-cart']);
-		// 	return view('general.shopping.guest-buyer');
-		// }
+		
 	}
 }

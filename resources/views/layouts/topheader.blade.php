@@ -99,10 +99,16 @@
         <div class="container">
             <div class="logo-nav">
                 <div class="logo-nav-left">
-                    <h1><a href="{{ route('welcome') }}" style="font-size: 30px!important" class="hidden-xs">SECONDHAND SHOP <span style="letter-spacing: 4px; font-size: 10px; padding-top: 4px">YOU SELL WE BUY
+                    <h1><a href="{{ route('welcome') }}" style="font-size: 25px!important" class="hidden-xs">SECONDHAND SHOP <span style="letter-spacing: 1px; font-size: 12.5px; padding-top: 10px">YOU SELL WE BUY
          YOU BUY WE SELL</span></a></h1>
-                    <h1><a href="{{ route('welcome') }}" style="font-size: 30px!important" class="hidden-lg hidden-md hidden-sm">KSHS <span style="letter-spacing: 4px; font-size: 10px; padding-top: 4px">Y S W B
-         Y B W SL</span></a></h1>
+                    <h1>
+                        <a href="{{ route('welcome') }}" style="font-size: 10px!important; letter-spacing: 2px" class="hidden-lg hidden-md hidden-sm">
+                            YOU SELL WE BUY 
+                            <span style="letter-spacing: 2px; font-size: 10px; padding-top: 4px">
+                            YOU BUY WE SELL
+                            </span>
+                        </a>
+                    </h1>
                 </div>
                 <div class="logo-nav-left1">
                     <nav class="navbar navbar-default">

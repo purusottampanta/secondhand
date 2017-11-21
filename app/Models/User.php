@@ -92,4 +92,13 @@ class User extends Authenticatable
         $value = $this->profile_picture;
         return asset($value ? getThumbnail($value) : 'img/avatar.jpg');
     }
+
+    public function incompleteProfile()
+    {
+        if(!$this->mobile_phone || !$this->street || !$this->area_location){
+            return true;
+        }
+
+        return false;
+    }
 }

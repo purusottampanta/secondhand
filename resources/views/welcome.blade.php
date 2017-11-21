@@ -10,10 +10,10 @@
         <div class="row">
            {{--  <div class="panel panel-info">
                 <div class="panel-heading"> --}}
-                    <h3 class="mar-0 text-center" style="padding:30px; font-size: 30px; color: #1565C0">{{ ucwords('you sell we buy you buy we sell') }}</h3>
+                    {{-- <h3 class="mar-0 text-center" style="padding:30px; font-size: 30px; color: #1565C0">{{ ucwords('you sell we buy you buy we sell') }}</h3> --}}
                 {{-- </div>
                 <div class="panel-body"> --}}
-                    <div class="jcarousel-wrapper">
+                    <div class="jcarousel-wrapper pad-t-20">
                         <div class="jcarousel">
                             <ul>
                                 <?php $count_slider = $sliders->count();?>
