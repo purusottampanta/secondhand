@@ -56,7 +56,11 @@ trait ActivityTrait
      */
     public function getUserId($userId = null)
     {
-        return $userId ?: authUser()->id;
+        if(authUser()){
+            return $userId ?: authUser()->id;
+        }else{
+            return 0;
+        }
     }
 
     /**

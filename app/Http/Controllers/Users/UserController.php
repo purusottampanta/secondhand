@@ -62,6 +62,10 @@ class UserController extends Controller
 
         $user = $this->userRepo->updateUser($user, $request);
         
+        if($request->session()->has('incompleteProfile') && $request->session('incompleteProfile') == 'incomplete profile buyer'){
+            
+        }
+
         return back()->withStatus('Profile updated successfully'); 
 
     }

@@ -47,6 +47,13 @@
         <script src="{{ asset('js/app.js') }}"></script>
         <script src="{{ asset('js/temp-main.js') }}"></script>
 
+         <script>
+             $(document).ready(function(){
+                setTimeout(function() {
+                  $('#success-return, #error-return').fadeOut('slow');
+                }, 3000); // <-- time in milliseconds
+            });
+          </script>
 
     @show
 </body>

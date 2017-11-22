@@ -46,6 +46,16 @@ Route::group(['namespace' => 'General'], function(){
 		'as' => 'general.products.addToCart',
 		'uses' => 'ShoppingController@addToCart',
 	]);
+
+	Route::post('/general/{product}/buy-now/{user?}/{incomplete?}', [
+		'as' => 'general.products.buyNow',
+		'uses' => 'ShoppingController@buyNow',
+	]);
+
+	Route::get('/general/continue-as-guest', [
+		'as' => 'general.products.continueAsGuest',
+		'uses' => 'ShoppingController@continueAsGuest',
+	]);
 });
 
 
