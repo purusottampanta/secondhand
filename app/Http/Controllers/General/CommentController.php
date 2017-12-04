@@ -4,27 +4,19 @@ namespace App\Http\Controllers\General;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Repositories\Eloquent\ProductRepository;
+use App\Repositories\Eloquent\CommentRepository;
 
 class CommentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
+    protected $productRepo;
+    protected $commentRepo;
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    function __construct(ProductRepository $productRepo, CommentRepository $commentRepo)
     {
-        //
+        $this->middleware('auth');
+        $this->productRepo = $productRepo;
+        $this->commentRepo = $commentRepo;
     }
 
     /**
@@ -33,32 +25,21 @@ class CommentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $productId)
     {
-        //
+        $product = $this->productRepo->requiredById($productId);
+
+        $comment = $this->commentRepo->getNew();
+
+        $comment->comment = $request->comment;
+        $comment->user_id = authUser()->id;
+        $comment->parent_id = $request->parent_id ? $request->parent_id : null;
+        
+        $product->comments()->save($comment);
+
+        return back();
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.

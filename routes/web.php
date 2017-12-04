@@ -61,6 +61,11 @@ Route::group(['namespace' => 'General'], function(){
 
 Auth::routes();
 
+Route::resource('/{product}/comments', 'General\CommentController', ['only' => [ 'store',
+    'update', 'destroy'
+	]]);
+
+
 // Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['namespace' => 'Users', 'middleware' => 'auth', 'prefix' => 'users'], function(){

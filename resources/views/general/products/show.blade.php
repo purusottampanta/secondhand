@@ -114,17 +114,17 @@
 			</div>
 			<div class="col-md-3 single-grid1">
 				<h2 class="text-center pad-b-10" style="color: #1565C0;">Popular <br> Products</h2>
-				@forelse($popular_products as $key => $product)
-					<div class="recent-grids">
+				@forelse($popular_products as $key => $popular_product)
+					<div class="recent-grids pad-b-10" style="background-color: white;">
 						<div class="recent-left">
-							<a href="{{ route('general.products.show', ['category' => $product->category, 'slug'=> $product->product_slug]) }}"><img class="img-responsive " src="{{ $product->images->first() ? $product->images->first()->smallThumbnail() : '' }}" alt=""></a>	
+							<a href="{{ route('general.products.show', ['category' => $popular_product->category, 'slug'=> $popular_product->product_slug]) }}"><img class="img-responsive " src="{{ $popular_product->images->first() ? $popular_product->images->first()->smallThumbnail() : '' }}" alt=""></a>	
 						</div>
 						<div class="recent-right">
-							<h6 class="best2"><a href="{{ route('general.products.show', ['category' => $product->category, 'slug'=> $product->product_slug]) }}">{{ str_limit($product->product_name, 17) }} </a></h6>
+							<h6 class="best2"><a href="{{ route('general.products.show', ['category' => $popular_product->category, 'slug'=> $popular_product->product_slug]) }}">{{ str_limit($popular_product->product_name, 17) }} </a></h6>
 							<div class="block">
 								<div class="starbox small ghosting"> </div>
 							</div>
-							<span class=" price-in1"> Rs. {{ $product->price }}</span>
+							<span class=" price-in1"> Rs. {{ $popular_product->price }}</span>
 						</div>	
 						<div class="clearfix"> </div>
 					</div>
@@ -134,6 +134,35 @@
 			</div>
 			<div class="clearfix"> </div>
 		</div>
+
+		<div class="response">
+			  	<div class="media response-info">
+			  		<h4>Post Your Review</h4>
+			  			<div class="media-left response-text-left">
+								<a href="#">
+									@if(authUser())
+										<img src="{{ authUser()->profilePicture() }}" alt="{{ authUser()->full_name }}" height="70" width="70">
+									@endif
+								</a>
+								{{-- <h5><a href="#">Username</a></h5> --}}
+							</div>
+							<div class="media-body response-text-right">
+								@if(!auth()->check())
+									<div class="reviewRule" hidden style="background-color: #e3e3e3; font-size: 16px">
+										<span class="text-lg">You need to login to post review. <a href="{{ route('login') }}">Click here</a> to login</span>
+									</div>
+								@endif
+					  		<div id="{{ authUser() ? '': 'reviewFormDiv' }}">
+					  			@include('general.comments.form')
+					  		</div>
+					  	</div>
+			  	</div>
+
+			  	@if(isset($comments['root']))
+						@include('general.comments.commentlist', ['commentsCollection' => $comments['root']])
+			  	@endif
+					</div>
+
 		<div class="product-agile pad-20">
             <div class="container">
                 <h3 class="tittle1">You may also like</h3>
@@ -222,5 +251,28 @@
 			controlNav: "thumbnails"
 		  });
 		});
+
+		$(document).ready(function(){
+		    $('.reviewReply').on('click', function(e){
+		    	e.preventDefault();
+		    	// $('.replyBox').hide();
+		    	$(this).parent('ul').find('.replyBox').toggle( "slow" );
+		    });
+
+		    $('.reviewTextarea').on('focus',function(e){
+		    	e.preventDefault();
+		    	// alert('hye');
+		    	$('.reviewRule').show( "slow" );
+		    	$(this).prop('disabled', true);
+
+		    });
+
+		    $('.reviewTextarea').on('focusout', function(e){
+	    		e.preventDefault();
+	    		$(this).prop('disabled', false);
+	    	});
+
+		});	
+
 	</script>
 @endsection

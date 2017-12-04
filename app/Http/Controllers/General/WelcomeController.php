@@ -48,6 +48,11 @@ class WelcomeController extends Controller
    public function showProduct($category, $product_slug)
    {
       $product = $this->productRepo->requiredBySlug($product_slug);
+
+      $product = $product->load('comments.user');
+
+      $comments = $product->comments->groupBy('parent_id');
+
       $similar_products = $this->productRepo->productModel()->with(['images' => function($q){
             $q->oldest();
          }])->whereIn('status', $this->status)->where('category', $product->category)->where('id', '!=', $product->id)->latest()->limit(4)->get();
@@ -58,7 +63,14 @@ class WelcomeController extends Controller
 
       event(new ProductViewCounter($product));
 
-      return view('general.products.show', compact('product', 'similar_products', 'popular_products'));
+       if(isset($comments['']))
+       {
+         $comments['root'] = $comments[''];
+
+         unset($comments['']);
+       }
+// return $product;
+      return view('general.products.show', compact('product', 'similar_products', 'popular_products', 'comments'));
    }
 
    public function productByCategory($category)
