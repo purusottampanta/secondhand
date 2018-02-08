@@ -13,7 +13,8 @@ class WelcomeController extends Controller
 
 	protected $productRepo;
    protected $slider;
-   protected $status = ['listed_for_sell', 'booked', 'sold'];
+   // protected $status = ['listed_for_sell', 'booked', 'sold'];
+   protected $status = ['listed_for_sell', 'booked'];
 
    function __construct(ProductRepository $productRepo, SliderRepository $slider)
    {

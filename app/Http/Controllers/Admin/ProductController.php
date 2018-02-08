@@ -129,6 +129,6 @@ class ProductController extends Controller
 
         $product->update(['status' => $request->status]);
 
-        return back()->withStatus('Product status updated');
+        return redirect()->route('admin.products.index')->withStatus('Product status updated');
     }
 }

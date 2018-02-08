@@ -79,7 +79,7 @@
 							    	<p>{{ ucfirst(implode(' ', explode('_', $product->condition))) }}</p>
 							    </div>
 							    <div class="col-md-4">
-							    	<span>{{ getStatus()[$product->status] }}</span>
+							    	<span class="{{ $product->status == 'sold' ? 'text-danger' :'' }}">{{ getStatus()[$product->status] }}</span>
 							    	<span class="pull-right">{{ getCategories()[$product->category] }}</span>
 							    </div>
 						    </a>
@@ -103,7 +103,7 @@
 										<a href="{{ route('admin.products.edit', $product->product_slug) }}"><u>Edit Ad</u>
 										</a>
 									</small> --}}
-									<small class="text-info pad-l-5"><u>{{ getStatus()[$product->status] }}</u></small>
+									<small class="{{ $product->status == 'sold' ? 'text-danger' :'text-info' }} pad-l-5"><u>{{ getStatus()[$product->status] }}</u></small>
 									<small class="text-info pad-l-5"><u>{{ ucfirst(implode(' ', explode('_', $product->condition))) }}</u></small>
 									<span class="text-info pad-l-5"><i class="fa fa-eye pad-r-5"></i>{{ $product->views }}</span>
 									<a href="{{ route('admin.products.edit', $product->product_slug) }}" class="btn btn-xs" type="button" title="edit"><i class="fa fa-edit"></i></a>
@@ -113,8 +113,8 @@
 					    </div>
 					    <div class="col-md-2 hidden-xs">
 					    	<div class="pull-right">
-						    	<a href="{{ route('admin.products.edit', $product->product_slug) }}" class="btn btn-xs" type="button" title="edit"><i class="fa fa-edit"></i></a>
-						    	{!! getDeleteForm(route('admin.products.destroy', $product->id), 'Delete product?', 'Are you sure you want to delete this product', 'btn btn-flat ink-reaction text-warning', 'fa fa-archive') !!}
+						    	<a href="{{ route('admin.products.edit', $product->product_slug) }}" class="btn btn-xs {{ $product->status == 'booked' ? 'text-black' : '' }}" type="button" title="edit" ><i class="fa fa-edit"></i></a>
+						    	{!! getDeleteForm(route('admin.products.destroy', $product->id), 'Delete product?', 'Are you sure you want to delete this product', 'btn btn-flat ink-reaction text-warning '. ($product->status == 'booked' ? 'text-black' : ''), 'fa fa-archive') !!}
 						    </div>
 					    </div>
 					</div>
