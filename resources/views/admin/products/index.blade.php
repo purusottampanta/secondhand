@@ -28,7 +28,113 @@
 
 @section('content')
 	<div class="col-md-12">
-		<h2>Products</h2>
+		<h2>Products 
+			<a href="{{ route('admin.products.create') }}" class="btn btn-sm btn-info" title="Add new product">
+				<i class="fa fa-plus"></i>
+			</a>
+		</h2>
+
+		<div class="row mar-5">
+			<div class="col-md-3">
+				<div class="dropdown">
+					<button id="dLabel1" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<i class="fa fa-filter pad-5"></i>Condition: 
+						@if($condition)
+							@if(array_key_exists($condition, getProductsCondition()))
+								{{ getProductsCondition()[$condition] }}
+							@endif
+						@else
+							All
+						@endif
+						<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu" aria-labelledby="dLabel1">
+						<li>
+							<a href="{{ route('admin.products.index', ['category' => $category, 'status' => $status]) }}">All</a>
+						</li>
+						<li class="{{ $condition == 'like_new' ? 'bg-info' : '' }}">
+							<a href="{{ route('admin.products.index', ['condition' => 'like_new', 'category' => $category, 'status' => $status]) }}">Like new</a>
+						</li>
+						<li class="{{ $condition == 'excellent' ? 'bg-info' : '' }}">
+							<a href="{{ route('admin.products.index', ['condition' => 'excellent', 'category' => $category, 'status' => $status]) }}">Excellent</a>
+						</li>
+						<li class="{{ $condition == 'good' ? 'bg-info' : '' }}">
+							<a href="{{ route('admin.products.index', ['condition' => 'good', 'category' => $category, 'status' => $status]) }}">Good</a>
+						</li>
+						<li class="{{ $condition == 'fair' ? 'bg-info' : '' }}">
+							<a href="{{ route('admin.products.index', ['condition' => 'fair', 'category' => $category, 'status' => $status]) }}">Fair</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="dropdown">
+					<button id="dLabel2" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<i class="fa fa-filter pad-5"></i>Category: 
+						@if($category)
+							@if(array_key_exists($category, getCategories()))
+								{{ getCategories()[$category] }}
+							@endif
+						@else
+							All
+						@endif
+						<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu" aria-labelledby="dLabel2">
+						<li>
+							<a href="{{ route('admin.products.index', ['condition' => $condition, 'status' => $status]) }}">All</a>
+						</li>
+						<li class="{{ $category == 'home_furniture' ? 'bg-info' : '' }}">
+							<a href="{{ route('admin.products.index', ['condition' => $condition, 'category' => 'home_furniture', 'status' => $status]) }}">Home Furniture</a>
+						</li>
+						<li class="{{ $category == 'office_furniture' ? 'bg-info' : '' }}">
+							<a href="{{ route('admin.products.index', ['condition' => $condition, 'category' => 'office_furniture', 'status' => $status]) }}">Office Furniture</a>
+						</li>
+						<li class="{{ $category == 'electronics' ? 'bg-info' : '' }}">
+							<a href="{{ route('admin.products.index', ['condition' => $condition, 'category' => 'electronics', 'status' => $status]) }}">Electronics</a>
+						</li>
+						<li class="{{ $category == 'others' ? 'bg-info' : '' }}">
+							<a href="{{ route('admin.products.index', ['condition' => $condition, 'category' => 'others', 'status' => $status]) }}">Others</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="dropdown">
+					<button id="dLabel3" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<i class="fa fa-filter pad-5"></i>Status: 
+						@if($status)
+							@if(array_key_exists($status, getStatus()))
+								{{ getStatus()[$status] }}
+							@endif
+						@else
+							All
+						@endif
+						<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu" aria-labelledby="dLabel3">
+						<li>
+							<a href="{{ route('admin.products.index', ['condition' => $condition, 'category' => $category]) }}">All</a>
+						</li>
+						<li class="{{ $status == 'listed_for_sell' ? 'bg-info' : '' }}">
+							<a href="{{ route('admin.products.index', ['condition' => $condition, 'category' => $category, 'status' => 'listed_for_sell']) }}">Listed for sell</a>
+						</li>
+						<li class="{{ $status == 'booked' ? 'bg-info' : '' }}">
+							<a href="{{ route('admin.products.index', ['condition' => $condition, 'category' => $category, 'status' => 'booked']) }}">Booked</a>
+						</li>
+						<li class="{{ $status == 'sold' ? 'bg-info' : '' }}">
+							<a href="{{ route('admin.products.index', ['condition' => $condition, 'category' => $category, 'status' => 'sold']) }}">Sold</a>
+						</li>
+						<li class="{{ $status == 'bought' ? 'bg-info' : '' }}">
+							<a href="{{ route('admin.products.index', ['condition' => $condition, 'category' => $category, 'status' => 'bought']) }}">Bought by admin</a>
+						</li>
+						<li class="{{ $status == 'sell_request' ? 'bg-info' : '' }}">
+							<a href="{{ route('admin.products.index', ['condition' => $condition, 'category' => $category, 'status' => 'sell_request']) }}">Request to sell</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
 		<div class="row mar-5 hidden-xs">
 			<div class="media pad-10 bg-info">
 				<div class="media-left">

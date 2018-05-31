@@ -198,7 +198,7 @@ class ProductRepository extends Repository
 
 		if($category){
 			if(in_array($category, $this->categories)){
-				return $this->condition->where('category', $category);
+				return $condition->where('category', $category);
 			}
 
 			abort(404);
@@ -209,6 +209,16 @@ class ProductRepository extends Repository
 
 	protected function filterByStatus($category)
 	{
+		$status = request()->status;
+
+		if($status){
+			if(in_array($status, $this->status)){
+				return $category->where('status', $status);
+			}
+
+			abort(404);
+		}
+
 		return $category;
 	}
 

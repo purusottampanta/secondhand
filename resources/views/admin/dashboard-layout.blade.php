@@ -30,7 +30,7 @@
     <!-- Daterange picker -->
     <link rel="stylesheet" href="{{ asset('lib/bootstrap-daterangepicker/daterangepicker.css') }}">
     <!-- bootstrap wysihtml5 - text editor -->
-    <link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+    {{-- <link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css"> --}}
       
     <link href="{{ asset('css/mystyle.css') }}?<?php echo time(); ?>" rel="stylesheet">
 
@@ -86,8 +86,8 @@
   <!-- Sparkline -->
   <script src="{{ asset('lib/jquery-sparkline/dist/jquery.sparkline.min.js') }}"></script>
   <!-- jvectormap -->
-  <script src="plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
-  <script src="plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+  {{-- <script src="plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script> --}}
+  {{-- <script src="plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script> --}}
   <!-- jQuery Knob Chart -->
   <script src="{{ asset('lib/jquery-knob/dist/jquery.knob.min.js') }}"></script>
   <!-- daterangepicker -->
@@ -96,7 +96,7 @@
   <!-- datepicker -->
   <script src="{{ asset('lib/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
   <!-- Bootstrap WYSIHTML5 -->
-  <script src="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+  {{-- <script src="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script> --}}
   <!-- Slimscroll -->
   <script src="{{ asset('lib/jquery-slimscroll/jquery.slimscroll.min.js') }}"></script>
   <!-- FastClick -->

@@ -3,6 +3,67 @@
 @section('content')
 	<div class="col-md-12">
 		<h2>Users</h2>
+		<div class="row mar-5">
+			<div class="col-md-3">
+				<div class="dropdown pull-left">
+					<button id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<i class="fa fa-filter pad-5"></i>Status: 
+						@if($confirmed)
+							@if($confirmed == 'confirmed')
+								Confirmed
+							@else
+								Un-confirmed
+							@endif
+						@else
+							All
+						@endif
+						<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu" aria-labelledby="dLabel">
+						<li>
+							<a href="{{ route('admin.users.index', ['admin' => $admin]) }}">All</a>
+						</li>
+						<li class="{{ $confirmed == 'confirmed' ? 'bg-info' : '' }}">
+							<a href="{{ route('admin.users.index', ['confirmed' => 'confirmed', 'admin' => $admin]) }}">Confrimed</a>
+						</li>
+						<li class="{{ $confirmed == 'unconfirmed' ? 'bg-info' : '' }}">
+							<a href="{{ route('admin.users.index', ['confirmed' => 'unconfirmed', 'admin' => $admin]) }}">Un-confrimed</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<div class="dropdown pull-left">
+					<button id="dLabel" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<i class="fa fa-filter pad-5"></i>Role: 
+						@if($admin)
+							@if($admin == 'admin')
+								Admin
+							@else
+								Non-admin
+							@endif
+						@else
+							All
+						@endif
+						<span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu" aria-labelledby="dLabel">
+						<li>
+							<a href="{{ route('admin.users.index', ['confirmed' => $confirmed]) }}">All</a>
+						</li>
+						<li class="{{ $admin == 'admin' ? 'bg-info' : '' }}">
+							<a href="{{ route('admin.users.index', ['confirmed' => $confirmed, 'admin' => 'admin']) }}">Admin</a>
+						</li>
+						<li class="{{ $admin == 'not_admin' ? 'bg-info' : '' }}">
+							<a href="{{ route('admin.users.index', ['confirmed' => $confirmed, 'admin' => 'not_admin']) }}">Non-admin</a>
+						</li>
+					</ul>
+				</div>
+				<div class="pull-right">
+					<a href="{{ route('admin.users.create') }}" class="btn btn-sm btn-info" title="Add new user"><i class="fa fa-plus"></i></a>
+				</div>
+			</div>
+		</div>
 		<div class="row">
 			<div class="media pad-10 bg-info">
 				<div class="media-left">

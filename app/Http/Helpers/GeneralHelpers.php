@@ -106,6 +106,16 @@ function getStatus()
 	];
 }
 
+function getProductsCondition()
+{
+	return [
+		'like_new' => 'Like new',
+		'excellent' => 'Excellent',
+		'good' => 'Good',
+		'fair' => 'Fair'
+	];
+}
+
 function getStatusColor($status)
 {
 	if($status == 'sell_request'){
