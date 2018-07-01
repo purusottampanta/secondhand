@@ -212,7 +212,7 @@
                         <div class="arrivals-grids">
 
                             @forelse($featured as $key => $featured_ad)
-                                <div class="col-md-3 col-xs-6 arrival-grid simpleCart_shelfItem">
+                                <div class="col-md-3 col-xs-6 arrival-grid simpleCart_shelfItem mar-b-20">
                                     <div class="grid-arr">
                                         <div  class="grid-arrival">
                                             <figure>        
@@ -275,7 +275,7 @@
                         <h3 class="tittle1">New Arrivals</h3>
                         <div class="arrivals-grids">
                             @forelse($products as $key => $product)
-                                <div class="col-md-3 col-sm-6 arrival-grid simpleCart_shelfItem">
+                                <div class="col-md-3 col-sm-6 arrival-grid simpleCart_shelfItem mar-b-20">
                                     <div class="grid-arr">
                                         <div  class="grid-arrival">
                                             <figure>        
