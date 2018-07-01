@@ -263,11 +263,11 @@
                             
                             <div class="clearfix"></div>
                         </div>
-                            @if(count($featured) == 4)
+                            {{-- @if(count($featured) == 4)
                                 <div class="pull-right pad-10">
                                     <a href="{{ route('featured') }}"><i class="fa fa-chevron-circle-right pad-r-5"></i>view more</a>
                                 </div>
-                            @endif
+                            @endif --}}
                     </div>
                 </div>
                 <div class="product-agile pad-20">
@@ -325,11 +325,11 @@
                             @endforelse
                             <div class="clearfix"></div>
                         </div>
-                        @if(count($products) == 4)
+                        {{-- @if(count($products) == 4)
                             <div class="pull-right pad-10">
                                 <a href="{{ route('recent') }}"><i class="fa fa-chevron-circle-right pad-r-5"></i>view more</a>
                             </div>
-                        @endif
+                        @endif --}}
                     </div>
                 </div>
 

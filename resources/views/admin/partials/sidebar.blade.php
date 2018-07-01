@@ -69,9 +69,19 @@
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
-          <ul class="treeview-menu">
-            <li class="{{ setActive('admin.products.index') }}"><a href="{{ route('admin.products.index') }}"><i class="fa fa-circle-o"></i> All</a></li>
+          <ul class="treeview-menu" style="display: block;">
             <li class="{{ setActive('admin.products.create') }}"><a href="{{ route('admin.products.create') }}"><i class="fa fa-circle-o"></i> Add new</a></li>
+            <li class="{{ setActive('admin.products.index') }}"><a href="{{ route('admin.products.index') }}"><i class="fa fa-circle-o"></i> All</a></li>
+            <li class="{{ setActive('admin.products.index') }}">
+              <a href="{{ route('admin.products.index', ['status' => 'listed_for_sell', 'is_direct' => 'yes']) }}">
+                <i class="fa fa-circle-o"></i> Listed for sell
+              </a>
+            </li>
+            <li class="{{ setActive('admin.products.index') }}">
+              <a href="{{ route('admin.products.index', ['status' => 'sold', 'is_direct' => 'yes']) }}">
+                <i class="fa fa-circle-o"></i> Sold
+              </a>
+            </li>
             {{-- <li><a href="pages/charts/flot.html"><i class="fa fa-circle-o"></i> Flot</a></li>
             <li><a href="pages/charts/inline.html"><i class="fa fa-circle-o"></i> Inline charts</a></li> --}}
           </ul>

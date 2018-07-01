@@ -20,6 +20,53 @@
 						</div>
 					</div>
 				</div>
+				<?php 
+					if($product->images){
+						$images = $product->imageArray();
+					}
+				?>
+				<div class="row">
+					<div class="col-sm-3 col-md-offset-3 form-group {{ ($errors->has('image.0') ? 'has-error' : '') }}">
+                        <label for="image[0]" class="control-label">
+                                Image 1/2
+                                <span class="text-danger pad-l-10">*</span>
+                            </label>
+                        <input type='file' id="image[0]" name="image[0]" class="image" />
+                        <img id="img1" src="#" alt="your image" height="150em" width="200em" hidden="hidden" class="viewImage" />
+                        @if($product->images && array_key_exists(0, $images))
+                            <img src="{{ $images[0] }}" alt="your image" height="150em" width="200em">
+                        @endif
+                        @if ($errors-> has('image.0'))
+                        <span class="glyphicon glyphicon-warning-sign form-control-feedback">
+                        </span>
+                        <span class="help-block">
+                            <strong>
+                              {{ $errors-> first('image.0') }}
+                            </strong>
+                        </span>
+                        @endif
+                    </div>
+                    <div class="col-sm-3 form-group {{ ($errors->has('image.1') ? 'has-error' : '') }}">
+                        <label for="image[1]" class="control-label">
+                                Image 2/2
+                                <span class="text-danger pad-l-10">*</span>
+                            </label>
+                        <input type='file' id="image[1]" name="image[1]" class="image" />
+                        <img id="img1" src="#" alt="your image" height="150em" width="200em" hidden="hidden" class="viewImage" />
+                        @if($product->images && array_key_exists(1, $images))
+                            <img src="{{ $images[1] }}" alt="your image" height="150em" width="200em">
+                        @endif
+                        @if ($errors-> has('image.1'))
+                        <span class="glyphicon glyphicon-warning-sign form-control-feedback">
+                        </span>
+                        <span class="help-block">
+                            <strong>
+                              {{ $errors-> first('image.1') }}
+                            </strong>
+                        </span>
+                        @endif
+                    </div>
+				</div>
 				<div class="row">
 					<div class="col-md-12 form-group{{ $errors->has('product_name') ? ' has-error' : '' }}">
 		                <div class="col-md-offset-1 col-md-2">
@@ -191,53 +238,6 @@
 						</div>
 					</div>
 				</div> --}}
-				<?php 
-					if($product->images){
-						$images = $product->imageArray();
-					}
-				?>
-				<div class="row">
-					<div class="col-sm-3 col-md-offset-3 form-group {{ ($errors->has('image.0') ? 'has-error' : '') }}">
-                        <label for="image[0]" class="control-label">
-                                Image 1/2
-                                <span class="text-danger pad-l-10">*</span>
-                            </label>
-                        <input type='file' id="image[0]" name="image[0]" class="image" />
-                        <img id="img1" src="#" alt="your image" height="150em" width="200em" hidden="hidden" class="viewImage" />
-                        @if($product->images && array_key_exists(0, $images))
-                            <img src="{{ $images[0] }}" alt="your image" height="150em" width="200em">
-                        @endif
-                        @if ($errors-> has('image.0'))
-                        <span class="glyphicon glyphicon-warning-sign form-control-feedback">
-                        </span>
-                        <span class="help-block">
-                            <strong>
-                              {{ $errors-> first('image.0') }}
-                            </strong>
-                        </span>
-                        @endif
-                    </div>
-                    <div class="col-sm-3 form-group {{ ($errors->has('image.1') ? 'has-error' : '') }}">
-                        <label for="image[1]" class="control-label">
-                                Image 2/2
-                                <span class="text-danger pad-l-10">*</span>
-                            </label>
-                        <input type='file' id="image[1]" name="image[1]" class="image" />
-                        <img id="img1" src="#" alt="your image" height="150em" width="200em" hidden="hidden" class="viewImage" />
-                        @if($product->images && array_key_exists(1, $images))
-                            <img src="{{ $images[1] }}" alt="your image" height="150em" width="200em">
-                        @endif
-                        @if ($errors-> has('image.1'))
-                        <span class="glyphicon glyphicon-warning-sign form-control-feedback">
-                        </span>
-                        <span class="help-block">
-                            <strong>
-                              {{ $errors-> first('image.1') }}
-                            </strong>
-                        </span>
-                        @endif
-                    </div>
-				</div>
 				<div class="row">
 					<div class="col-md-12 form-group{{ $errors->has('description') ? ' has-error' : '' }}">
 						<div class="col-md-offset-1 col-md-2">
@@ -245,9 +245,7 @@
 						</div>
 
 						<div class="col-md-6">
-							<textarea name="description" id="description" cols="30" rows="10" class="form-control">
-								{{ $product->description ? $product->description : old('description') }}
-							</textarea>
+							<textarea name="description" id="description" cols="30" rows="10" class="form-control">{{ $product->description ? $product->description : old('description') }}</textarea>
 
 							@if($errors->has('description'))
 								<span class="help-block">

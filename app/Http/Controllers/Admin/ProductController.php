@@ -35,10 +35,11 @@ class ProductController extends Controller
         $home_delivery = $request->home_delivery;
         $featured = $request->featured;
         $sort = $request->sort;
+        $is_direct = $request->is_direct;
 
         $products = $this->productRepo->fetchAll()->paginate(20);
 
-        return view('admin.products.index', compact('products', 'q', 'condition', 'category', 'status', 'price', 'negotiable', 'discount', 'home_delivery', 'featured', 'sort'));
+        return view('admin.products.index', compact('products', 'q', 'condition', 'category', 'status', 'price', 'negotiable', 'discount', 'home_delivery', 'featured', 'sort', 'is_direct'));
     }
 
     /**

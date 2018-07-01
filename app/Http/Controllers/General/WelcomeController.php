@@ -35,11 +35,11 @@ class WelcomeController extends Controller
 
          $products = $this->productRepo->productModel()->with(['images' => function($q){
    			$q->oldest();
-   		}])->whereIn('status', $this->status)->where('is_featured', 0)->latest()->get()->take(4);
+   		}])->whereIn('status', $this->status)->where('is_featured', 0)->latest()->get()->take(100);
 
    		$featured = $this->productRepo->productModel()->with(['images' => function($q){
                $q->oldest();
-         }])->whereIn('status', $this->status)->where('is_featured', 1)->latest()->get()->take(4);
+         }])->whereIn('status', $this->status)->where('is_featured', 1)->latest()->get()->take(100);
 
          $sliders = $this->slider->sliderModel()->orderBy('position', 'ASC')->get();
 

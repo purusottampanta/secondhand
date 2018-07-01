@@ -4,7 +4,7 @@
 	    <meta property="og:title" content="{{ $product->product_name }} | {{ getCategories()[$product->category] }} | Buy Sell used second hand furniture " />
         <meta property="og:description" content="{{ $product->product_name }} | {{ getCategories()[$product->category] }} | You Sell We Buy You Buy We Sell | secondhand | furniture | office, home furniture | furniture prices| online shopping| home shopping" />
         <meta property="og:image" content="{{ asset($product->images->first()->image_path) }}" />
-        <meta name="description" content="{{ $product->product_name }} | furniture stores | furniture price in nepal | {{ getCategories()[$product->category] }} | secondhand shop, used furniture, office, home, furniture | buy and sell | chair | sofa | bed | bookcase |office desk | online shopping | home shopping">
+        <meta name="description" content="{{ $product->product_name }} | furniture stores | furniture price in nepal | {{ getCategories()[$product->category] }} | secondhand shop, used furniture, office, home, furniture | buy and sell | chair | sofa | bed | bookcase |office desk | online shopping | home shopping | https://www.facebook.com/secondhandshop.ktm">
         <meta name="keywords" content="furniture stores, furniture price, {{ $product->product_name }} , used furniture, office, home, furniture, {{ getCategories()[$product->category] }}, buy and sell, chair, sofa, bed, bookcase, office desk, online shopping, home shopping">
 @endsection
 
@@ -24,6 +24,16 @@
 
 @section('content')
 	<div class="container">
+		<div class="row">
+			<div id="fb-root"></div>
+			<script>(function(d, s, id) {
+			  var js, fjs = d.getElementsByTagName(s)[0];
+			  if (d.getElementById(id)) return;
+			  js = d.createElement(s); js.id = id;
+			  js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0&appId=194051244503766&autoLogAppEvents=1';
+			  fjs.parentNode.insertBefore(js, fjs);
+			}(document, 'script', 'facebook-jssdk'));</script>
+		</div>
 		<div class="row">
 			<div class="col-md-12">
 				<div class="bg-white pad-10 border-round">
@@ -107,6 +117,8 @@
 							<a href="#"><i class="icon1"></i></a>
 							{{-- <a href="#"><i class="icon2"></i></a>
 							<a href="#"><i class="icon3"></i></a> --}}
+							<br>
+							<div class="fb-share-button" data-href="{{ route('general.products.show', ['category' => $product->category, 'slug'=> $product->product_slug]) }}" data-layout="button_count" data-size="large" data-mobile-iframe="true"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div>
 						</div>
 					</div>
 					<div class="clearfix"> </div>
