@@ -28,8 +28,7 @@ class CreateProductRequest extends FormRequest
             'condition' => 'required',
             'category' => 'required',
             'price' => 'required',
-            'image.0'=> 'required|max:2048',
-            'image.1'=> 'max:2048',
+            'image.0'=> 'required',
         ];
 
         if($this->home_delivery){

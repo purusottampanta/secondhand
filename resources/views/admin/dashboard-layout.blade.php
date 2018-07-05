@@ -110,6 +110,11 @@
   
   <script>
      $(document).ready(function(){
+      $.ajaxSetup({
+          headers: {
+              'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+          }
+      });
         setTimeout(function() {
           $('#success-return, #error-return').fadeOut('fast');
         }, 5000); // <-- time in milliseconds

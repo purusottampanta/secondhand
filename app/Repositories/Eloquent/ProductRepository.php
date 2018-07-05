@@ -99,15 +99,17 @@ class ProductRepository extends Repository
 		if($request->hasFile('image')){
 			foreach ($request->image as $key => $image) {
 
-				foreach ($product->images as $k => $old_img) {
-					$old_array[] = $k;
-					if($k == $key){
-						$data = $this->uploadPhoto($image, "uploads/products/{$product->id}", $old_img->image_path, 380, 284, 190);
+				if ($image) {
+					foreach ($product->images as $k => $old_img) {
+						$old_array[] = $k;
+						if($k == $key){
+							$data = $this->uploadPhoto($image, "uploads/products/{$product->id}", $old_img->image_path, 380, 284, 190);
 
-						$old_img->update(['image_name' => $data['originalFileName'], 'image_path' => $data['photo_path'], 'mime_type' => $data['mime_type'], 'image_size' => $data['file_size']]);
+							$old_img->update(['image_name' => $data['originalFileName'], 'image_path' => $data['photo_path'], 'mime_type' => $data['mime_type'], 'image_size' => $data['file_size']]);
+						}
 					}
+					$new_array[] = $key;
 				}
-				$new_array[] = $key;
 			}
 		}
 

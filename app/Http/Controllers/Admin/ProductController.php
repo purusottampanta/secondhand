@@ -37,7 +37,13 @@ class ProductController extends Controller
         $sort = $request->sort;
         $is_direct = $request->is_direct;
 
+        $return_status = $request->return_status;
+
         $products = $this->productRepo->fetchAll()->paginate(20);
+// return $products;
+        if ($return_status) {
+            return view('admin.products.index', compact('products', 'q', 'condition', 'category', 'status', 'price', 'negotiable', 'discount', 'home_delivery', 'featured', 'sort', 'is_direct'))->withStatus($return_status);
+        }
 
         return view('admin.products.index', compact('products', 'q', 'condition', 'category', 'status', 'price', 'negotiable', 'discount', 'home_delivery', 'featured', 'sort', 'is_direct'));
     }
@@ -61,6 +67,10 @@ class ProductController extends Controller
     public function store(CreateProductRequest $request)
     {
         $product = $this->productRepo->store($request);
+
+        if ($request->ajax()) {
+            return $product->id;
+        }
 
         return back()->withStatus('Product created');
     }
@@ -98,11 +108,15 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateProductRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $product = $this->productRepo->requiredById($id);
 
         $product = $this->productRepo->renew($product, $request);
+
+        if ($request->ajax()) {
+            return $request->all();
+        }
 
         return redirect()->route('admin.products.index')->withStatus('Product updated');
     }
@@ -131,5 +145,21 @@ class ProductController extends Controller
         $product->update(['status' => $request->status]);
 
         return redirect()->route('admin.products.index')->withStatus('Product status updated');
+    }
+
+    public function updateImageOnly(Request $request, $id)
+    {
+        $product = $this->productRepo->requiredById($id);
+
+        if ($request->hasFile('image')) {
+            if ($request->is_from_create && $request->is_from_create == 'yes') {
+
+                $data = $this->productRepo->uploadPhoto($request->file('image'), "uploads/products/{$product->id}", null, 380, 284, 190);
+
+                $product->images()->create(['image_name' => $data['originalFileName'], 'image_path' => $data['photo_path'], 'mime_type' => $data['mime_type'], 'image_size' => $data['file_size']]);
+            }
+        }
+
+        return 'success';
     }
 }

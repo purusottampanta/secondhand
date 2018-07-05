@@ -28,8 +28,6 @@ class UpdateProductRequest extends FormRequest
             'condition' => 'required',
             'category' => 'required',
             'price' => 'required',
-            'image.0'=> 'max:2048',
-            'image.1'=> 'max:2048',
         ];
 
         if($this->home_delivery){

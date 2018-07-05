@@ -32,10 +32,13 @@
 			<a href="{{ route('admin.products.create') }}" class="btn btn-sm btn-info" title="Add new product">
 				<i class="fa fa-plus"></i>
 			</a>
+			<br>
+			
 		</h2>
+
 		@if(!$is_direct)
 			<div class="row mar-5">
-				<div class="col-md-3">
+				<div class="col-md-3 col-sm-4 col-xs-6">
 					<div class="dropdown">
 						<button id="dLabel1" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							<i class="fa fa-filter pad-5"></i>Condition: 
@@ -67,7 +70,7 @@
 						</ul>
 					</div>
 				</div>
-				<div class="col-md-3">
+				<div class="col-md-3 col-sm-4 col-xs-6">
 					<div class="dropdown">
 						<button id="dLabel2" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							<i class="fa fa-filter pad-5"></i>Category: 
@@ -99,7 +102,7 @@
 						</ul>
 					</div>
 				</div>
-				<div class="col-md-3">
+				<div class="col-md-3 col-sm-4 col-xs-6">
 					<div class="dropdown">
 						<button id="dLabel3" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 							<i class="fa fa-filter pad-5"></i>Status: 
@@ -136,6 +139,11 @@
 				</div>
 			</div>
 		@endif
+		<div class="row">
+			<span class="mar-5 pad-10">
+				Showing {{ $products->firstItem() }} to {{ $products->lastItem() }} of total {{ $products->total() }} results
+			</span>
+		</div>
 		<div class="row mar-5 hidden-xs">
 			<div class="media pad-10 bg-info">
 				<div class="media-left">
@@ -167,7 +175,7 @@
 		@forelse($products as $key => $product)
 			<div class="row mar-5">
 				<div class="media pad-10 {{ getStatusColor($product->status) }}">
-					<div class="media-left hidden-xs">
+					<div class="media-left">
 					    <a href="{{ route('admin.products.show', $product->product_slug) }}">
 					      <img class="media-object" src="{{ $product->images->first() ? $product->images->first()->smallThumbnail() : asset('img/sliders/slide4.jpg') }}" alt="{{ $product->product_name }}" height="50%" class="img-responsive">
 					    </a>

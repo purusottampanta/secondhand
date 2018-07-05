@@ -4,9 +4,9 @@
 	<div class="row">
 		<div class="col-md-12">
 			
-			<form action="{{ route('admin.products.update', $product->id) }}" method="POST" enctype="multipart/form-data">
-				{{ csrf_field() }}
-				{{ method_field('PATCH') }}
+			<form action="{{ route('admin.products.update', $product->id) }}" method="POST" enctype="multipart/form-data" id="editProductForm">
+				{{-- {{ csrf_field() }} --}}
+				{{-- {{ method_field('PATCH') }} --}}
 				<div class="row pad-b-10">
 					<div class="col-md-9" style="margin-right: 20px">
 						<div class="col-md-offset-4">
@@ -272,7 +272,108 @@
 
 @section('javascript')
 @parent
+	<script src="{{asset('js/sweetalert.min.js')}}"></script>
 	<script>
+		
+      var images = [];
+      var fileNames = [];
+      var status = '{{ $product->status }}';
+      function alertProductCreation() {
+      	var para = document.createElement("p");
+      	var node = document.createTextNode("Updating product ");
+      	para.appendChild(node);
+      	swal({
+      		title: 'Please wait ...',
+      		content: para,
+      		buttons: false,
+      		closeOnClickOutside: false,
+      		closeOnEsc: false,
+      	});
+      }
+		function resizeAndUpload(elementId) {
+			var files = document.getElementById(elementId).files;
+			console.log(files);
+			var file = files[0];
+			var reader = new FileReader();
+		    reader.onloadend = function() {
+		 
+			    var tempImg = new Image();
+			    tempImg.src = reader.result;
+			    tempImg.onload = function() {
+			 
+			        var MAX_WIDTH = 800;
+			        var MAX_HEIGHT = 600;
+			        var tempW = tempImg.width;
+			        var tempH = tempImg.height;
+			        if (tempW > tempH) {
+			            if (tempW > MAX_WIDTH) {
+			               tempH *= MAX_WIDTH / tempW;
+			               tempW = MAX_WIDTH;
+			            }
+			        } else {
+			            if (tempH > MAX_HEIGHT) {
+			               tempW *= MAX_HEIGHT / tempH;
+			               tempH = MAX_HEIGHT;
+			            }
+			        }
+			 
+			        var canvas = document.createElement('canvas');
+			        canvas.width = tempW;
+			        canvas.height = tempH;
+			        var ctx = canvas.getContext("2d");
+			        ctx.drawImage(this, 0, 0, tempW, tempH);
+			        var dataURL = canvas.toDataURL("image/jpeg");
+
+			        var block = dataURL.split(";");
+	               // Get the content type
+	               var contentType = block[0].split(":")[1];// In this case "image/gif"
+	               // get the real base64 content of the file
+	               var realData = block[1].split(",")[1];// In this case "iVBORw0KGg...."
+
+	               // Convert to blob
+	               var blob = b64toBlob(realData, contentType);
+
+	               if (elementId === 'image[0]') {
+	               		images[0] = blob;
+	               		fileNames[0] = file.name;
+	               }else{
+	                    images[1] = blob;
+	                    fileNames[1] = file.name;
+	               }
+	               // images.push(blob);
+	               // fileNames.push(file.name);
+
+			    }
+		 
+		   }
+		   reader.readAsDataURL(file);
+		}
+
+		function b64toBlob(b64Data, contentType, sliceSize) {
+           contentType = contentType || '';
+           sliceSize = sliceSize || 512;
+
+           var byteCharacters = atob(b64Data);
+           var byteArrays = [];
+
+           for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+               var slice = byteCharacters.slice(offset, offset + sliceSize);
+
+               var byteNumbers = new Array(slice.length);
+               for (var i = 0; i < slice.length; i++) {
+                   byteNumbers[i] = slice.charCodeAt(i);
+               }
+
+               var byteArray = new Uint8Array(byteNumbers);
+
+               byteArrays.push(byteArray);
+           }
+
+         var blob = new Blob(byteArrays, {type: contentType});
+         return blob;
+       }
+
+
 		function readURL(input, img) {
 
             if (input.files && input.files[0]) {
@@ -287,9 +388,79 @@
             }
         }
 
-        $(".image").change(function(){
+        $(".image").change(function(e){
             var img = $(this).siblings('.viewImage');
             readURL(this, img);
+            console.log(e.target.id);
+            resizeAndUpload(e.target.id);
+        });
+
+        $('#editProductForm').submit(function (e){
+        	e.preventDefault();
+        	alertProductCreation();
+        	// console.log(images);
+        	// console.log(images.length);
+
+        	// console.log($('#product_name').val());
+        	// console.log($("#editProductForm").serialize());
+
+           var fd = new FormData($("#editProductForm"));
+           fd.append('product_name', $('#product_name').val());
+           fd.append('condition', $('#condition').val());
+           fd.append('category', $('#category').val());
+           fd.append('price', $('#price').val());
+           fd.append('discount', $('#discount').val());
+
+           if(document.getElementById("is_negotiable").checked){
+               fd.append('is_negotiable', $('#is_negotiable').val());
+           }
+
+           if(document.getElementById("is_featured").checked){
+               fd.append('is_featured', $('#is_featured').val());
+           }
+
+           if(document.getElementById("home_delivery").checked){
+               fd.append('home_delivery', $('#home_delivery').val());
+           }
+
+           fd.append('delivery_charge', $('#delivery_charge').val());
+           fd.append('description', $('#description').val());
+           fd.append('status', status);
+
+      //      if (images.length > 0) {
+	     //       for(var i=0; i<images.length; i++){
+	 				// fd.append("image["+ i +"]", images[i], fileNames[i]);
+	     //       }
+      //      }
+
+
+           fd.append('image[0]', images[0], fileNames[0]);
+           fd.append('image[1]', images[1], fileNames[1]);
+
+           console.log(fd);
+
+           var d = $("#editProductForm").serialize();
+	        $.ajax({
+                url:"{{ route('admin.products.updateAjax', $product->id) }}",
+                data: fd,// the formData function is available in almost all new browsers.
+                type:"POST",
+                contentType:false,
+                processData:false,
+                cache:false,
+                dataType:"json", // Change this according to your response from the server.
+                error:function(err){
+                    console.error(err);
+                    window.location.href = "{{ route('admin.products.index', ['return_status' => 'Product updated.']) }}";
+                },
+                success:function(data){
+                    console.log(data);
+                    window.location.href = "{{ route('admin.products.index', ['return_status' => 'Product updated.']) }}";
+                },
+                complete:function(){
+                    console.log("Request finished.");
+                }
+            });
+
         });
 
         $(document).ready(function(){

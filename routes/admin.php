@@ -13,6 +13,17 @@ Route::post('/products/statusUpdate/{product}', [
 	'as' => 'admin.products.updateStatus',
 	'uses' => 'ProductController@updateStatus',
 ]);
+
+Route::post('/products/update-image-only/{product}', [
+	'as' => 'admin.products.updateImageOnly',
+	'uses' => 'ProductController@updateImageOnly',
+]);
+
+Route::post('/products/update/{product}', [
+	'as' => 'admin.products.updateAjax',
+	'uses' => 'ProductController@update',
+]);
+
 Route::resource('products', 'ProductController', ['as' => 'admin']);
 Route::resource('sliders', 'SliderController', ['as' => 'admin']);
 Route:: get('/sellRequest', [
