@@ -3,6 +3,15 @@
 @section('stylesheet')
 @parent
 <link rel="stylesheet" href="{{ asset('lib/jcarousel/jcarousel.responsive.css') }}">
+<style>
+    
+    @media (max-width: 667px)
+    {
+        .arrival-grid:nth-child(3), .arrival-grid:nth-child(4) {
+            margin-top: 0;
+        }
+    }
+</style>
 @endsection
 
 @section('content')
@@ -13,7 +22,7 @@
                     {{-- <h3 class="mar-0 text-center" style="padding:30px; font-size: 30px; color: #1565C0">{{ ucwords('you sell we buy you buy we sell') }}</h3> --}}
                 {{-- </div>
                 <div class="panel-body"> --}}
-                    <div class="jcarousel-wrapper pad-t-20">
+                    <div class="jcarousel-wrapper">
                         <div class="jcarousel">
                             <ul>
                                 <?php $count_slider = $sliders->count();?>
@@ -206,56 +215,62 @@
         </div>
     </div>
             <div class="content">
-                <div class="new-arrivals-w3agile pad-20">
+                <div class="new-arrivals-w3agile pad-10">
                     <div class="container">
                         <h3 class="tittle1">Featured</h3>
-                        <div class="arrivals-grids">
+                        <div class="arrivals-grids arrivals-grids-small">
 
-                            @forelse($featured as $key => $featured_ad)
-                                <div class="col-md-3 col-xs-6 arrival-grid simpleCart_shelfItem mar-b-20">
-                                    <div class="grid-arr">
-                                        <div  class="grid-arrival">
-                                            <figure>        
-                                                <a href="{{ route('general.products.show', ['category' => $featured_ad->category, 'slug'=> $featured_ad->product_slug]) }}">
-                                                    <div class="grid-img">
-                                                        <img  src="{{ $featured_ad->images->first() ? $featured_ad->images->first()->smallThumbnail() : '' }}" class="img-responsive" alt="">
+                            @forelse($featured->chunk(4) as $chunked_featured_ad)
+                                <div class="row">
+                                    @forelse($chunked_featured_ad as $key => $featured_ad)
+                                        <div class="col-md-3 col-xs-6 arrival-grid simpleCart_shelfItem {{ strlen($featured_ad->product_name) >= 25 ? '' : 'mar-b-15 pad-b-20' }}">
+                                            <div class="grid-arr">
+                                                <div  class="grid-arrival">
+                                                    <figure>        
+                                                        <a href="{{ route('general.products.show', ['category' => $featured_ad->category, 'slug'=> $featured_ad->product_slug]) }}">
+                                                            <div class="grid-img">
+                                                                <img  src="{{ $featured_ad->images->first() ? $featured_ad->images->first()->smallThumbnail() : '' }}" class="img-responsive" alt="">
+                                                            </div>
+                                                            <div class="grid-img">
+                                                                <img  src="{{ $featured_ad->images->first() ? $featured_ad->images->first()->smallThumbnail() : '' }}" class="img-responsive"  alt="">
+                                                            </div>          
+                                                        </a>        
+                                                    </figure>   
+                                                </div>
+                                                @if($featured_ad->status == 'sold')
+                                                    <div class="ribben1">
+                                                        <p>sold</p>
                                                     </div>
-                                                    <div class="grid-img">
-                                                        <img  src="{{ $featured_ad->images->first() ? $featured_ad->images->first()->smallThumbnail() : '' }}" class="img-responsive"  alt="">
-                                                    </div>          
-                                                </a>        
-                                            </figure>   
-                                        </div>
-                                        @if($featured_ad->status == 'sold')
-                                            <div class="ribben1">
-                                                <p>sold</p>
+                                                @elseif($featured_ad->status == 'booked')
+                                                    <div class="ribben">
+                                                        <p>booked</p>
+                                                    </div>
+                                                @endif
+                                                
+                                                {{-- <div class="ribben1">
+                                                    <p>SALE</p>
+                                                </div> --}}
+                                                <div class="block">
+                                                    <div class="starbox small ghosting"> </div>
+                                                </div>
+                                                <div class="women">
+                                                    <h6>
+                                                        <a href="{{ route('general.products.show', ['category' => $featured_ad->category, 'slug'=> $featured_ad->product_slug]) }}">
+                                                            {{ str_limit($featured_ad->product_name, 44) }}
+                                                        </a>
+                                                    </h6>
+                                                    {{-- <span class="size">XL / XXL / S </span> --}}
+                                                    <p >
+                                                        {{-- <del>$100.00</del> --}}
+                                                        <em class="item_price">Rs. {{ $featured_ad->price }}</em>
+                                                    </p>
+                                                    {{-- <a href="#" data-text="Add To Cart" class="my-cart-b item_add">Add To Cart</a> --}}
+                                                </div>
                                             </div>
-                                        @elseif($featured_ad->status == 'booked')
-                                            <div class="ribben">
-                                                <p>booked</p>
-                                            </div>
-                                        @endif
-                                        
-                                        {{-- <div class="ribben1">
-                                            <p>SALE</p>
-                                        </div> --}}
-                                        <div class="block">
-                                            <div class="starbox small ghosting"> </div>
                                         </div>
-                                        <div class="women">
-                                            <h6>
-                                                <a href="{{ route('general.products.show', ['category' => $featured_ad->category, 'slug'=> $featured_ad->product_slug]) }}">
-                                                    {{ $featured_ad->product_name }}
-                                                </a>
-                                            </h6>
-                                            {{-- <span class="size">XL / XXL / S </span> --}}
-                                            <p >
-                                                {{-- <del>$100.00</del> --}}
-                                                <em class="item_price">Rs. {{ $featured_ad->price }}</em>
-                                            </p>
-                                            {{-- <a href="#" data-text="Add To Cart" class="my-cart-b item_add">Add To Cart</a> --}}
-                                        </div>
-                                    </div>
+                                    @empty
+
+                                    @endforelse
                                 </div>
                             @empty
 
@@ -274,51 +289,57 @@
                     <div class="container">
                         <h3 class="tittle1">New Arrivals</h3>
                         <div class="arrivals-grids">
-                            @forelse($products as $key => $product)
-                                <div class="col-md-3 col-sm-6 arrival-grid simpleCart_shelfItem mar-b-20">
-                                    <div class="grid-arr">
-                                        <div  class="grid-arrival">
-                                            <figure>        
-                                                <a href="{{ route('general.products.show', ['category' => $product->category, 'slug'=> $product->product_slug]) }}">
-                                                    <div class="grid-img">
-                                                        <img  src="{{ $product->images->first() ? $product->images->first()->smallThumbnail() : '' }}" class="img-responsive" alt="">
+                            @forelse($products->chunk(4) as $chunked_products)
+                                <div class="row">
+                                    @forelse($chunked_products as $key => $product)
+                                        <div class="col-md-3 col-sm-6 arrival-grid simpleCart_shelfItem  {{ strlen($product->product_name) >= 25 ? '' : 'mar-b-15 pad-b-20' }}">
+                                            <div class="grid-arr">
+                                                <div  class="grid-arrival">
+                                                    <figure>        
+                                                        <a href="{{ route('general.products.show', ['category' => $product->category, 'slug'=> $product->product_slug]) }}">
+                                                            <div class="grid-img">
+                                                                <img  src="{{ $product->images->first() ? $product->images->first()->smallThumbnail() : '' }}" class="img-responsive" alt="">
+                                                            </div>
+                                                            <div class="grid-img">
+                                                                <img  src="{{ $product->images->first() ? $product->images->first()->smallThumbnail() : '' }}" class="img-responsive"  alt="">
+                                                            </div>          
+                                                        </a>        
+                                                    </figure>   
+                                                </div>
+                                                @if($product->status == 'sold')
+                                                    <div class="ribben1">
+                                                        <p>sold</p>
                                                     </div>
-                                                    <div class="grid-img">
-                                                        <img  src="{{ $product->images->first() ? $product->images->first()->smallThumbnail() : '' }}" class="img-responsive"  alt="">
-                                                    </div>          
-                                                </a>        
-                                            </figure>   
-                                        </div>
-                                        @if($product->status == 'sold')
-                                            <div class="ribben1">
-                                                <p>sold</p>
+                                                @elseif($product->status == 'booked')
+                                                    <div class="ribben">
+                                                        <p>booked</p>
+                                                    </div>
+                                                @endif
+                                                
+                                                {{-- <div class="ribben1">
+                                                    <p>SALE</p>
+                                                </div> --}}
+                                                <div class="block">
+                                                    <div class="starbox small ghosting"> </div>
+                                                </div>
+                                                <div class="women">
+                                                    <h6>
+                                                        <a href="{{ route('general.products.show', ['category' => $product->category, 'slug'=> $product->product_slug]) }}">
+                                                            {{ str_limit($product->product_name, 44) }}
+                                                        </a>
+                                                    </h6>
+                                                    {{-- <span class="size">XL / XXL / S </span> --}}
+                                                    <p >
+                                                        {{-- <del>$100.00</del> --}}
+                                                        <em class="item_price">Rs. {{ $product->price }}</em>
+                                                    </p>
+                                                    {{-- <a href="#" data-text="Add To Cart" class="my-cart-b item_add">Add To Cart</a> --}}
+                                                </div>
                                             </div>
-                                        @elseif($product->status == 'booked')
-                                            <div class="ribben">
-                                                <p>booked</p>
-                                            </div>
-                                        @endif
-                                        
-                                        {{-- <div class="ribben1">
-                                            <p>SALE</p>
-                                        </div> --}}
-                                        <div class="block">
-                                            <div class="starbox small ghosting"> </div>
                                         </div>
-                                        <div class="women">
-                                            <h6>
-                                                <a href="{{ route('general.products.show', ['category' => $product->category, 'slug'=> $product->product_slug]) }}">
-                                                    {{ str_limit($product->product_name, 44) }}
-                                                </a>
-                                            </h6>
-                                            {{-- <span class="size">XL / XXL / S </span> --}}
-                                            <p >
-                                                {{-- <del>$100.00</del> --}}
-                                                <em class="item_price">Rs. {{ $product->price }}</em>
-                                            </p>
-                                            {{-- <a href="#" data-text="Add To Cart" class="my-cart-b item_add">Add To Cart</a> --}}
-                                        </div>
-                                    </div>
+                                    @empty
+
+                                    @endforelse
                                 </div>
                             @empty
 

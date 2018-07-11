@@ -60,7 +60,7 @@
 </nav> --}}
 
 <div class="header">
-    <div class="header-top">
+    <div class="header-top header-top-small">
         <div class="container">
              <div class="top-left">
                 <a href="#"> Help  <i class="fa fa-phone fa-5x"></i> +977 985-1234047</a>
@@ -95,12 +95,18 @@
             <div class="clearfix"></div>
         </div>
     </div>
-    <div class="heder-bottom">
+    <div class="heder-bottom header-bottom-small">
         <div class="container">
             <div class="logo-nav">
                 <div class="logo-nav-left">
-                    <h1><a href="{{ route('welcome') }}" style="font-size: 25px!important" class="hidden-xs">SECONDHAND SHOP <span style="letter-spacing: 1px; font-size: 12.5px; padding-top: 10px">YOU SELL WE BUY
-         YOU BUY WE SELL</span></a></h1>
+                    <h1>
+                        <a href="{{ route('welcome') }}" style="font-size: 20px!important" class="hidden-xs">SECONDHAND SHOP 
+                            <span style="letter-spacing: 1px; font-size: 10px; padding-top: 10px">
+                                YOU SELL WE BUY
+                                YOU BUY WE SELL
+                            </span>
+                        </a>
+                    </h1>
                     <h1>
                         <a href="{{ route('welcome') }}" style="font-size: 10px!important; letter-spacing: 2px" class="hidden-lg hidden-md hidden-sm">
                             YOU SELL WE BUY 
@@ -141,7 +147,7 @@
                     </nav>
                 </div>
                 <div class="logo-nav-right">
-                    <ul class="cd-header-buttons">
+                    <ul class="cd-header-buttons cd-header-buttons-small">
                         <li><a class="cd-search-trigger" href="#cd-search"> <span></span></a></li>
                     </ul> <!-- cd-header-buttons -->
                     <div id="cd-search" class="cd-search">

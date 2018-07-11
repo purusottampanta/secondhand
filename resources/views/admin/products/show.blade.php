@@ -163,7 +163,7 @@
 	<div class="modal fade" id="statusUpdateModal" tabindex="-1" role="dialog" aria-labelledby="statusUpdateModalLabel">
 	  <div class="modal-dialog" role="document">
 	    <div class="modal-content">
-	      <form action="{{ route('admin.products.updateStatus', $product->id) }}" method="POST">
+	      <form action="{{ route('admin.products.updateStatus', ['product' => $product->id, 'previous_status' => $previous_status, 'is_direct' => $is_direct]) }}" method="POST">
 	      	{{ csrf_field() }}
 	      	{{-- {{ method_field('PATCH') }} --}}
 	      	<div class="modal-header">

@@ -245,6 +245,22 @@
 	color: #ffffff !important;
 }
 
+.cd-header-buttons-small{
+    top: 39px;
+}
+
+.header-top-small{
+    padding: 0.1em 0;
+}
+.header-bottom-small{
+    padding: 0;
+}
+
+.arrivals-grids-small{
+    margin-top: 1.5em;
+}
+
+
 @media all and (min-width: 700px)
 {
     .welcome_page_images
@@ -272,6 +288,71 @@
     	height: 50%;
     	width: 70%;
     }
+}
+
+@media (max-width: 320px)
+{
+	.cd-header-buttons-small {
+	    top: 65px;
+	    right: 5%;
+	}
+}
+
+
+@media (max-width: 375px)
+{
+	.cd-header-buttons-small {
+	    top: 40px;
+	    right: 5%;
+	}
+}
+@media (max-width: 384px)
+{
+	.cd-header-buttons-small {
+	    top: 40px;
+	    right: 5%;
+	}
+}
+@media (max-width: 414px)
+{
+	.cd-header-buttons-small {
+	    top: 40px;
+	    right: 5%;
+	}
+}
+@media (max-width: 480px)
+{
+	.cd-header-buttons-small {
+	    top: 40px;
+	    right: 5%;
+	}
+}
+@media (max-width: 600px)
+{
+	.cd-header-buttons-small {
+	    top: 40px;
+	    right: 5%;
+	}
+}
+@media (max-width: 800px)
+{
+	.cd-header-buttons-small {
+	    top: 40px;
+	    right: 5%;
+	}
+}
+@media (max-width: 991px)
+{
+	.cd-header-buttons-small {
+	    top: 40px;
+	    right: 5%;
+	}
+}
+@media (max-width: 1024px)
+{
+	.cd-header-buttons-small {
+	    right: 5%;
+	}
 }
 
 

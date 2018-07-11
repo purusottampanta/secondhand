@@ -83,9 +83,11 @@ class ProductController extends Controller
      */
     public function show($slug)
     {
-        $product = $this->productRepo->requiredBySlug($slug)->load('images');
+        $previous_status    = request()->status;
+        $is_direct          = request()->is_direct;
+        $product            = $this->productRepo->requiredBySlug($slug)->load('images');
 
-        return view('admin.products.show', compact('product'));
+        return view('admin.products.show', compact('product', 'previous_status', 'is_direct'));
     }
 
     /**
@@ -136,15 +138,23 @@ class ProductController extends Controller
 
     public function updateStatus(Request $request, $id)
     {
+
+        $previous_status    = $request->previous_status;
+        $is_direct          = $request->is_direct;
+
         if(!$request->has('status')){
-            return back()->withErrors(['status' => 'Status field is required'])->withError('Status field is required');
+            return back()
+                    ->withErrors(['status' => 'Status field is required'])
+                    ->withError('Status field is required');
         }
 
         $product = $this->productRepo->requiredById($id);
 
         $product->update(['status' => $request->status]);
 
-        return redirect()->route('admin.products.index')->withStatus('Product status updated');
+        return redirect()
+                ->route('admin.products.index', ['status' => $previous_status, 'is_direct' => $is_direct])
+                ->withStatus('Product status updated');
     }
 
     public function updateImageOnly(Request $request, $id)

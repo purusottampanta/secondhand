@@ -122,18 +122,18 @@
 							<li class="{{ $status == 'listed_for_sell' ? 'bg-info' : '' }}">
 								<a href="{{ route('admin.products.index', ['condition' => $condition, 'category' => $category, 'status' => 'listed_for_sell']) }}">Listed for sell</a>
 							</li>
-							<li class="{{ $status == 'booked' ? 'bg-info' : '' }}">
+							{{-- <li class="{{ $status == 'booked' ? 'bg-info' : '' }}">
 								<a href="{{ route('admin.products.index', ['condition' => $condition, 'category' => $category, 'status' => 'booked']) }}">Booked</a>
-							</li>
+							</li> --}}
 							<li class="{{ $status == 'sold' ? 'bg-info' : '' }}">
 								<a href="{{ route('admin.products.index', ['condition' => $condition, 'category' => $category, 'status' => 'sold']) }}">Sold</a>
 							</li>
-							<li class="{{ $status == 'bought' ? 'bg-info' : '' }}">
+							{{-- <li class="{{ $status == 'bought' ? 'bg-info' : '' }}">
 								<a href="{{ route('admin.products.index', ['condition' => $condition, 'category' => $category, 'status' => 'bought']) }}">Bought by admin</a>
 							</li>
 							<li class="{{ $status == 'sell_request' ? 'bg-info' : '' }}">
 								<a href="{{ route('admin.products.index', ['condition' => $condition, 'category' => $category, 'status' => 'sell_request']) }}">Request to sell</a>
-							</li>
+							</li> --}}
 						</ul>
 					</div>
 				</div>
@@ -176,13 +176,13 @@
 			<div class="row mar-5">
 				<div class="media pad-10 {{ getStatusColor($product->status) }}">
 					<div class="media-left">
-					    <a href="{{ route('admin.products.show', $product->product_slug) }}">
+					    <a href="{{ route('admin.products.show', ['product' => $product->product_slug, 'status' => $status, 'is_direct' => $is_direct]) }}">
 					      <img class="media-object" src="{{ $product->images->first() ? $product->images->first()->smallThumbnail() : asset('img/sliders/slide4.jpg') }}" alt="{{ $product->product_name }}" height="50%" class="img-responsive">
 					    </a>
 					</div>
 					<div class="media-body">
 					    <div class="col-md-10">
-					    	<a href="{{ route('admin.products.show', $product->product_slug) }}" style="{{ getStatusColor($product->status) == 'bg-primary' ? 'color:#000000' : '' }}" class="hidden-xs">
+					    	<a href="{{ route('admin.products.show', ['product' => $product->product_slug, 'status' => $status, 'is_direct' => $is_direct]) }}" style="{{ getStatusColor($product->status) == 'bg-primary' ? 'color:#000000' : '' }}" class="hidden-xs">
 						    	<div class="col-md-3">
 						    		<h4 class="media-heading">{{ $product->product_name }}</h4>
 						    	</div>
@@ -199,7 +199,7 @@
 							    </div>
 						    </a>
 						    <div class="hidden-md hidden-sm hidden-lg">
-						    	<a href="{{ route('admin.products.show', $product->product_slug) }}" class="text-lg">{{ $product->product_name }}</a>
+						    	<a href="{{ route('admin.products.show', ['product' => $product->product_slug, 'status' => $status, 'is_direct' => $is_direct]) }}" class="text-lg">{{ $product->product_name }}</a>
 						    	<br>
 						    	<small>
 						    		<strong>Category: </strong>
@@ -218,17 +218,44 @@
 										<a href="{{ route('admin.products.edit', $product->product_slug) }}"><u>Edit Ad</u>
 										</a>
 									</small> --}}
-									<small class="{{ $product->status == 'sold' ? 'text-danger' :'text-info' }} pad-l-5"><u>{{ getStatus()[$product->status] }}</u></small>
-									<small class="text-info pad-l-5"><u>{{ ucfirst(implode(' ', explode('_', $product->condition))) }}</u></small>
-									<span class="text-info pad-l-5"><i class="fa fa-eye pad-r-5"></i>{{ $product->views }}</span>
-									<a href="{{ route('admin.products.edit', $product->product_slug) }}" class="btn btn-xs" type="button" title="edit"><i class="fa fa-edit"></i></a>
+									<small class="{{ $product->status == 'sold' ? 'text-danger' :'text-info' }} pad-l-5">
+										<u>{{ getStatus()[$product->status] }}</u>
+									</small>
+									<small class="text-info pad-l-5">
+										<u>{{ ucfirst(implode(' ', explode('_', $product->condition))) }}</u>
+									</small>
+									<span class="text-info pad-l-5">
+										<i class="fa fa-eye pad-r-5"></i>
+										{{ $product->views }}
+									</span>
+									<a href="{{ route('admin.products.edit', $product->product_slug) }}" class="btn btn-xs" type="button" title="edit">
+										<i class="fa fa-edit"></i>
+									</a>
 						    	{!! getDeleteForm(route('admin.products.destroy', $product->id), 'Delete product?', 'Are you sure you want to delete this product', 'btn btn-flat ink-reaction text-warning', 'fa fa-archive') !!}
+									@if($product->status == 'listed_for_sell')
+										<form action="{{ route('admin.products.updateStatus', ['product' => $product->id, 'previous_status' => $status, 'is_direct' => $is_direct]) }}" method="POST">
+											{{ csrf_field() }}
+											<input type="hidden" name="status" value="sold">
+											<input type="submit" class="btn btn-xs text-success" value="mark sold">
+										</form>
+						    		@endif
 								</div>
 						    </div>
 					    </div>
 					    <div class="col-md-2 hidden-xs">
 					    	<div class="pull-right">
-						    	<a href="{{ route('admin.products.edit', $product->product_slug) }}" class="btn btn-xs {{ $product->status == 'booked' ? 'text-black' : '' }}" type="button" title="edit" ><i class="fa fa-edit"></i></a>
+					    		@if($product->status == 'listed_for_sell')
+									<form action="{{ route('admin.products.updateStatus', ['product' => $product->id, 'previous_status' => $status, 'is_direct' => $is_direct]) }}" method="POST">
+										{{ csrf_field() }}
+										<input type="hidden" name="status" value="sold">
+										<input type="submit" class="btn btn-xs text-success" value="mark sold">
+									</form>
+					    		@endif
+						    	<a href="{{ route('admin.products.edit', $product->product_slug) }}" 
+						    		class="btn btn-xs {{ $product->status == 'booked' ? 'text-black' : '' }}" 
+						    		type="button" title="edit" >
+						    		<i class="fa fa-edit"></i>
+						    	</a>
 						    	{!! getDeleteForm(route('admin.products.destroy', $product->id), 'Delete product?', 'Are you sure you want to delete this product', 'btn btn-flat ink-reaction text-warning '. ($product->status == 'booked' ? 'text-black' : ''), 'fa fa-archive') !!}
 						    </div>
 					    </div>
@@ -239,7 +266,20 @@
 
 		@endforelse
 
-		{{ $products->appends(['q' => $q, 'condition' => $condition, 'category' => $category, 'status' => $status, 'price' => $price, 'negotiable' => $negotiable, 'discount' => $discount, 'home_delivery' => $home_delivery, 'featured' => $featured, 'sort' => $sort])->links() }}
+		{{ $products->appends([
+			'q' 			=> $q, 
+			'condition' 	=> $condition, 
+			'category' 		=> $category, 
+			'status' 		=> $status, 
+			'price' 		=> $price, 
+			'negotiable' 	=> $negotiable, 
+			'discount' 		=> $discount, 
+			'home_delivery' => $home_delivery, 
+			'featured' 		=> $featured, 
+			'sort' 			=> $sort,
+			'is_direct' 	=> $is_direct
+			])->links() 
+		}}
         {{-- {{ $products->appends(request()->query())->links() }} --}}
 	</div>
 
