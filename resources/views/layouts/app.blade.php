@@ -8,15 +8,16 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @section('meta-tag')
-        <meta property="og:title" content="Buy Sell used second hand furniture" />
-        <meta property="og:description" content="You Sell We Buy You Buy We Sell | secondhand | furniture | office, home furniture | furniture prices| online shopping| home shopping" />
+        <meta property="og:title" content="SECOND HAND SHOP" />
+        <meta property="og:description" content="Buy Sell Used Furniture" />
         <meta property="og:image" content="{{ asset('img/sliders/slide1.jpg') }}" />
-        <meta name="description" content="furniture stores | furniture price in nepal | secondhand shop, used furniture, office, home, furniture | buy and sell | chair | sofa | bed | bookcase |office desk | online shopping | home shopping | https://www.facebook.com/secondhandshop.ktm">
-        <meta name="keywords" content="furniture stores, furniture price, used furniture, office, home, furniture, buy and sell, chair, sofa, bed, bookcase, office desk, online shopping, home shopping">
+
+        <meta name="description" content="Buy-sell used home and office furniture in Kathmandu. Find sofa set, dinning table, bed, daraz, office table, chair, file rack, reception table and more">
+        <meta name="keywords" content="buy, sell, used furniture, home furniture, office furniture, sofa set, tea table, tv cabinet, palang, box palang, bed, lowbed, daraz, wardrobe, cupboard, carpets, curtains, chair, office table, ofice revolving chair, reception table, cash counter, file rack, ofice sofa, visitor's sofa, refrigerator, fridge, washing machine, music system, woofer, speaker">
     @show
     <title>
         @section('title')
-            Buy Sell used second hand furniture | furniture store | furniture price | online shopping | home shopping
+            SECOND HAND SHOP - Buy Sell Used Furniture
         @show
     </title>
     

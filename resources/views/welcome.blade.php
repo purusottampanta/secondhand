@@ -254,11 +254,11 @@
                                                     <div class="starbox small ghosting"> </div>
                                                 </div>
                                                 <div class="women">
-                                                    <h6>
+                                                    <p>
                                                         <a href="{{ route('general.products.show', ['category' => $featured_ad->category, 'slug'=> $featured_ad->product_slug]) }}">
                                                             {{ str_limit($featured_ad->product_name, 44) }}
                                                         </a>
-                                                    </h6>
+                                                    </p>
                                                     {{-- <span class="size">XL / XXL / S </span> --}}
                                                     <p >
                                                         {{-- <del>$100.00</del> --}}
@@ -323,11 +323,11 @@
                                                     <div class="starbox small ghosting"> </div>
                                                 </div>
                                                 <div class="women">
-                                                    <h6>
+                                                    <p>
                                                         <a href="{{ route('general.products.show', ['category' => $product->category, 'slug'=> $product->product_slug]) }}">
                                                             {{ str_limit($product->product_name, 44) }}
                                                         </a>
-                                                    </h6>
+                                                    </p>
                                                     {{-- <span class="size">XL / XXL / S </span> --}}
                                                     <p >
                                                         {{-- <del>$100.00</del> --}}

@@ -12,7 +12,7 @@ class Product extends Model
 {
     use Sluggable, SoftDeletes, ActivityTrait;
 
-    protected $fillable = ['product_name', 'product_slug', 'status', 'condition', 'category', 'price', 'is_negotiable', 'listing_duration', 'home_delivery', 'delivery_charge', 'views', 'features', 'description', 'is_featured', 'discount'];
+    protected $fillable = ['product_name', 'product_slug', 'status', 'condition', 'category', 'price', 'is_negotiable', 'listing_duration', 'home_delivery', 'delivery_charge', 'views', 'features', 'description', 'is_featured', 'discount', 'page_title', 'meta_key', 'meta_description'];
 
     /**
      * Return the sluggable configuration array for this model.

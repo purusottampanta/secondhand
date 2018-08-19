@@ -142,6 +142,36 @@
 						</div>
 					</div>
 				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="panel panel-info">
+						  	<div class="panel-heading">Page title</div>
+						  	<div class="panel-body">
+						    	{{ $product->page_title }}
+						  	</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="panel panel-info">
+						  	<div class="panel-heading">Meta key</div>
+						  	<div class="panel-body">
+						    	{{ $product->meta_key }}
+						  	</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="panel panel-info">
+						  	<div class="panel-heading">Meta description</div>
+						  	<div class="panel-body">
+						    	{{ $product->meta_description }}
+						  	</div>
+						</div>
+					</div>
+				</div>
 			</div>
 			<div class="col-md-4">
 				<div class="col-md-12 zoom-grid">

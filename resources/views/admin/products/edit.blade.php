@@ -255,6 +255,57 @@
 						</div>
 					</div>
 				</div>
+				<div class="row">
+					<div class="col-md-12 form-group{{ $errors->has('page_title') ? ' has-error' : '' }}">
+						<div class="col-md-offset-1 col-md-2">
+							<label for="page_title" class="control-label">Page Title</label>
+						</div>
+
+						<div class="col-md-6">
+							<textarea name="page_title" id="page_title" cols="30" rows="3" class="form-control">{{ $product->page_title ? $product->page_title : old('page_title') }}</textarea>
+
+							@if($errors->has('page_title'))
+								<span class="help-block">
+									<strong>{{ $errors->first('page_title') }}</strong>
+								</span>
+							@endif
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12 form-group{{ $errors->has('meta_key') ? ' has-error' : '' }}">
+						<div class="col-md-offset-1 col-md-2">
+							<label for="meta_key" class="control-label">Meta Key</label>
+						</div>
+
+						<div class="col-md-6">
+							<textarea name="meta_key" id="meta_key" cols="30" rows="3" class="form-control">{{ $product->meta_key ? $product->meta_key : old('meta_key') }}</textarea>
+
+							@if($errors->has('meta_key'))
+								<span class="help-block">
+									<strong>{{ $errors->first('meta_key') }}</strong>
+								</span>
+							@endif
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12 form-group{{ $errors->has('meta_description') ? ' has-error' : '' }}">
+						<div class="col-md-offset-1 col-md-2">
+							<label for="meta_description" class="control-label">Meta Description</label>
+						</div>
+
+						<div class="col-md-6">
+							<textarea name="meta_description" id="meta_description" cols="30" rows="6" class="form-control">{{ $product->meta_description ? $product->meta_description : old('meta_description') }}</textarea>
+
+							@if($errors->has('meta_description'))
+								<span class="help-block">
+									<strong>{{ $errors->first('meta_description') }}</strong>
+								</span>
+							@endif
+						</div>
+					</div>
+				</div>
 				<div class="row pad-b-10">
 					<div class="col-md-9" style="margin-right: 20px">
 						<div class="pull-right">
@@ -425,6 +476,9 @@
 
            fd.append('delivery_charge', $('#delivery_charge').val());
            fd.append('description', $('#description').val());
+           fd.append('page_title', $('#page_title').val());
+           fd.append('meta_key', $('#meta_key').val());
+           fd.append('meta_description', $('#meta_description').val());
            fd.append('status', status);
 
       //      if (images.length > 0) {
@@ -450,11 +504,11 @@
                 dataType:"json", // Change this according to your response from the server.
                 error:function(err){
                     console.error(err);
-                    window.location.href = "{{ route('admin.products.index', ['return_status' => 'Product updated.']) }}";
+                    window.location.href = "{{ route('admin.products.index') }}";
                 },
                 success:function(data){
                     console.log(data);
-                    window.location.href = "{{ route('admin.products.index', ['return_status' => 'Product updated.']) }}";
+                    window.location.href = "{{ route('admin.products.index') }}";
                 },
                 complete:function(){
                     console.log("Request finished.");

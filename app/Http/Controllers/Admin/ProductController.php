@@ -170,6 +170,6 @@ class ProductController extends Controller
             }
         }
 
-        return 'success';
+        return $request->all();
     }
 }
