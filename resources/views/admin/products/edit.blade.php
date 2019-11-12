@@ -487,12 +487,18 @@
 	     //       }
       //      }
 
+      		if(images[0] && images[0] !== ""){
+           		fd.append('image[0]', images[0], fileNames[0]);
+           		console.log('0000');
+      		}
 
-           fd.append('image[0]', images[0], fileNames[0]);
-           fd.append('image[1]', images[1], fileNames[1]);
+      		if(images[1] && images[1] !== ""){
+           		console.log('1111');
+           		fd.append('image[1]', images[1], fileNames[1]);
+      		}
 
            console.log(fd);
-
+           console.log(images);
            var d = $("#editProductForm").serialize();
 	        $.ajax({
                 url:"{{ route('admin.products.updateAjax', $product->id) }}",
