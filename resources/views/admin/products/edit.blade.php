@@ -455,7 +455,7 @@
         	// console.log($('#product_name').val());
         	// console.log($("#editProductForm").serialize());
 
-           var fd = new FormData($("#editProductForm"));
+           var fd = new FormData($("#editProductForm")[0]);
            fd.append('product_name', $('#product_name').val());
            fd.append('condition', $('#condition').val());
            fd.append('category', $('#category').val());

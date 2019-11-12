@@ -396,7 +396,7 @@
 	               var blob = b64toBlob(realData, contentType);
 
 	               // Create a FormData and append the file
-	               var fd = new FormData($("#createImageForm"));
+	               var fd = new FormData($("#createImageForm")[0]);
 	               fd.append('product_name', $('#product_name').val());
 	               fd.append('condition', $('#condition').val());
 	               fd.append('category', $('#category').val());
@@ -498,7 +498,7 @@
 	               var blob = b64toBlob(realData, contentType);
 
 	               // Create a FormData and append the file
-	               var fd = new FormData($("#createImageForm"));
+	               var fd = new FormData($("#createImageForm")[0]);
 	               fd.append('is_from_create', 'yes');
 	               fd.append("image", blob, file.name);
 
