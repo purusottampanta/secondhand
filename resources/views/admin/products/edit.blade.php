@@ -564,7 +564,11 @@
         	// console.log($('#product_name').val());
         	// console.log($("#editProductForm").serialize());
 
+// <<<<<<< HEAD
            var fd = new FormData();
+// =======
+           var fd = new FormData($("#editProductForm")[0]);
+// >>>>>>> 455d010842560e6ad93e9105c42239dfb48bc2a2
            fd.append('product_name', $('#product_name').val());
            fd.append('condition', $('#condition').val());
            fd.append('main_category', $('#main_category').val());
@@ -598,13 +602,24 @@
 	     //       }
       //      }
 
+      		if(images[0] && images[0] !== ""){
+           		fd.append('image[0]', images[0], fileNames[0]);
+           		console.log('0000');
+      		}
 
-           fd.append('image[0]', images[0], fileNames[0]);
-           fd.append('image[1]', images[1], fileNames[1]);
+      		if(images[1] && images[1] !== ""){
+           		console.log('1111');
+           		fd.append('image[1]', images[1], fileNames[1]);
+      		}
 
            console.log(fd);
+<<<<<<< HEAD
 
            // var d = $("#editProductForm").serialize();
+=======
+           console.log(images);
+           var d = $("#editProductForm").serialize();
+>>>>>>> 455d010842560e6ad93e9105c42239dfb48bc2a2
 	        $.ajax({
                 url:"{{ route('admin.products.updateAjax', $product->id) }}",
                 data: fd,// the formData function is available in almost all new browsers.
