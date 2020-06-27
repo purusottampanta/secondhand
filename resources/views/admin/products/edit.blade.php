@@ -1,5 +1,7 @@
 @extends('admin.dashboard-layout')
 
+@inject('main_category', 'App\Models\Category')
+
 @section('content')
 	<div class="row">
 		<div class="col-md-12">
@@ -108,6 +110,113 @@
 		            </div>
 				</div>
 				<div class="row">
+					<div class="form-group {{ ($errors->has('main_category') ? 'has-error' : '') }}">
+					    <div class="col-md-3 col-sm-6">
+					        <label for="main_category" class="control-label pull-right">
+					            Category
+					            <span class="text-danger pad-l-10">*</span>
+					        </label>
+					    </div>
+					    <div class="col-md-6 col-sm-6">
+					        <select class="form-control" id="main_category" name="main_category" required>
+					            <option value="">Select category</option>
+					            @foreach($main_category->where('parent_id', null)->get() as $main)
+					                <option value="{{ $main->id }}" {{ $product->category_id == $main->id ? "selected":"" }}>{{ $main->category }}</option>
+					            @endforeach
+					        </select>
+					        @if ($errors-> has('main_category'))
+					        <span class="glyphicon glyphicon-warning-sign form-control-feedback">
+					        </span>
+					        <span class="help-block">
+					            <strong>
+					              {{ $errors-> first('main_category') }}
+					            </strong>
+					        </span>
+					        @endif
+					    </div>
+					    <div  id="spinner" hidden="hidden">
+
+					        <span class="fa fa-spinner fa-spin fa-2x"></span>
+
+					    </div>
+
+					   {{--  <div class="col-md-offset-3 col-md-6">
+					        <div class="form-group secondselector pad-r-10" hidden="hidden" style="margin-top: 10px!important">
+					            <select id=secondselectbox class="form-control mar-l-10" name="category"></select>
+					            <div  id="spinnerSecond" hidden="hidden">
+
+					                <span class="fa fa-spinner fa-spin fa-2x"></span>
+
+					            </div>
+					        </div>
+					        <div class="form-group thirdselector pad-r-10" hidden="hidden" style="margin-top: 10px!important">
+					            <select id=thirdselectbox class="form-control mar-l-10" name="sub_category"></select>
+					        </div> 
+					    </div> --}} 
+					</div>
+					@if($product->exists)
+					    <div class="col-md-offset-3 col-md-6">
+					    	@php
+					    		$super_main = $product->maincategory();
+					    		$sub_main_cat = $product->submaincategory();
+					    		$sub_cat = $product->subcategory();
+					    	@endphp
+					        @if(!is_null($sub_main_cat))
+					            <div class="form-group secondselector pad-r-10">
+					                <select id=secondselectbox class="form-control mar-l-10" name="category">
+					                	<option value="">Select category</option>
+					                @foreach($main_category->where('parent_id', $super_main)->get() as $sub_main)
+					                    <option value="{{ $sub_main->id }}" {{ $sub_main_cat == $sub_main->id ? "selected" : "" }}>{{ $sub_main->category }}</option>
+					                @endforeach
+					                </select>
+					                <div  id="spinnerSecond" hidden="hidden">
+
+					                    <span class="fa fa-spinner fa-spin fa-2x"></span>
+
+					                </div>
+					            </div>
+					        @else
+					            <div class="form-group secondselector pad-r-10" hidden="hidden">
+					                <select id=secondselectbox class="form-control mar-l-10" name="category"></select>
+					                <div  id="spinnerSecond" hidden="hidden">
+
+					                    <span class="fa fa-spinner fa-spin fa-2x"></span>
+
+					                </div>
+					            </div>
+					        @endif
+					        @if(!is_null($sub_cat))
+					            <div class="form-group thirdselector pad-r-10">
+					                <select id=thirdselectbox class="form-control mar-l-10" name="sub_category">
+					                	<option value="">Select category</option>
+					                   @foreach($main_category->where('parent_id', $sub_main_cat)->get() as $sub)
+					                    <option value="{{ $sub->id }}" {{ $sub_cat == $sub->id ? "selected" : "" }}>{{ $sub->category }}</option>
+					                    @endforeach 
+					                </select>
+					            </div>
+					        @else
+					            <div class="form-group thirdselector pad-r-10" hidden="hidden">
+					                <select id=thirdselectbox class="form-control mar-l-10" name="sub_category"></select>
+					            </div>  
+					        @endif
+					    </div>
+					@else
+					    <div class="col-md-offset-3 col-md-6">
+					        <div class="form-group secondselector pad-r-10" hidden="hidden" style="margin-top: 10px!important">
+					            <select id=secondselectbox class="form-control mar-l-10" name="category"></select>
+					            <div  id="spinnerSecond" hidden="hidden">
+
+					                <span class="fa fa-spinner fa-spin fa-2x"></span>
+
+					            </div>
+					        </div>
+					        <div class="form-group thirdselector pad-r-10" hidden="hidden" style="margin-top: 10px!important">
+					            <select id=thirdselectbox class="form-control mar-l-10" name="sub_category"></select>
+					        </div> 
+					    </div> 
+					@endif
+				</div>
+				{{-- <div class="row">
 					<div class="col-md-12 form-group{{ $errors->has('category') ? ' has-error' : '' }}">
 		                <div class="col-md-offset-1 col-md-2">
 		                	<label for="category" class="control-label">Category</label>
@@ -128,7 +237,7 @@
 		                    @endif
 		                </div>
 		            </div>
-				</div>
+				</div> --}}
 				<div class="row">
 					<div class="col-md-12 form-group{{ $errors->has('price') ? ' has-error' : '' }}">
 						<div class="col-md-offset-1 col-md-2">
@@ -455,10 +564,12 @@
         	// console.log($('#product_name').val());
         	// console.log($("#editProductForm").serialize());
 
-           var fd = new FormData($("#editProductForm"));
+           var fd = new FormData();
            fd.append('product_name', $('#product_name').val());
            fd.append('condition', $('#condition').val());
-           fd.append('category', $('#category').val());
+           fd.append('main_category', $('#main_category').val());
+	       fd.append('category', $('#secondselectbox').val());
+	       fd.append('sub_category', $('#thirdselectbox').val());
            fd.append('price', $('#price').val());
            fd.append('discount', $('#discount').val());
 
@@ -493,7 +604,7 @@
 
            console.log(fd);
 
-           var d = $("#editProductForm").serialize();
+           // var d = $("#editProductForm").serialize();
 	        $.ajax({
                 url:"{{ route('admin.products.updateAjax', $product->id) }}",
                 data: fd,// the formData function is available in almost all new browsers.
@@ -528,6 +639,63 @@
 		        $(".charge_row").removeAttr('hidden');
 		    }else{
 		    	$(".charge_row").attr('hidden', true);
+		    }
+		});
+		$('#main_category').on('change', function(e){
+		    e.preventDefault();
+		    $('#spinner').show();
+		    var id = $(this).val();
+		    var url = "/admin/categories/" + id +"/category-list";
+		    var data = {'id' : id};
+
+		    if(id){
+		    	$.ajax({
+			        url: url,
+			        type: 'GET',
+			        // data: data,
+			        success:function(data){
+			            var locationString = '<option value="">Please select</option>';
+			            $('#thirdselectbox').html(locationString);
+			            for(var i =0; i<data.length; i++){
+			                locationString += '<option value="' + data[i].id + '">' + data[i].category + '</option>';
+			            }
+			            $('#secondselectbox').parent('.secondselector').removeAttr('hidden');
+			            $('#secondselectbox').html(locationString);
+			            $('#spinner').hide();
+			        }
+			    });
+		    }else{
+		    	var locationString = '<option value="">Please select</option>';
+		    	$('#secondselectbox').html(locationString);
+			    $('#thirdselectbox').html(locationString);
+		    }
+		});
+		$('#secondselectbox').on('change', function(e){
+		    e.preventDefault();
+		    $('#spinnerSecond').show();
+		    var id = $(this).val();
+		    var url = "/admin/categories/" + id +"/category-list";
+		    var data = {'id' : id};
+
+		    if(id){
+		    	$.ajax({
+		    	    url: url,
+		    	    type: 'GET',
+		    	    // data: data,
+		    	    success:function(data){
+		    	        var locationString = '<option value="">Please select</option>';
+		    	        for(var i =0; i<data.length; i++){
+		    	            locationString += '<option value="' + data[i].id + '">' + data[i].category + '</option>';
+		    	        }
+		    	        $('#thirdselectbox').parent('.thirdselector').removeAttr('hidden');
+		    	        $('#thirdselectbox').html(locationString);
+		    	        $('#spinnerSecond').hide();
+		    	    }
+		    	});
+		    }else{
+		    	var locationString = '<option value="">Please select</option>';
+		    	$('#thirdselectbox').html(locationString);
+		    	$('#spinnerSecond').hide();
 		    }
 		});
 	</script>

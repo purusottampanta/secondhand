@@ -12,7 +12,7 @@ class Product extends Model
 {
     use Sluggable, SoftDeletes, ActivityTrait;
 
-    protected $fillable = ['product_name', 'product_slug', 'status', 'condition', 'category', 'price', 'is_negotiable', 'listing_duration', 'home_delivery', 'delivery_charge', 'views', 'features', 'description', 'is_featured', 'discount', 'page_title', 'meta_key', 'meta_description'];
+    protected $fillable = ['product_name', 'product_slug', 'status', 'condition', 'category', 'category_id', 'price', 'is_negotiable', 'listing_duration', 'home_delivery', 'delivery_charge', 'views', 'features', 'description', 'is_featured', 'discount', 'page_title', 'meta_key', 'meta_description'];
 
     /**
      * Return the sluggable configuration array for this model.
@@ -35,12 +35,90 @@ class Product extends Model
 
     public function images()
     {
-    	return $this->hasMany(Image::class);
+        return $this->hasMany(Image::class);
+    }
+
+    public function categories()
+    {
+    	return $this->belongsTo(Category::class, 'category_id', 'id')->withTrashed();
     }
 
     public function comments()
     {
         return $this->hasMany(Comment::class)->latest();
+    }
+
+    public function maincategory()
+    {
+        $value = $this->category_id;
+        $catValue1 = Category::find($value);
+
+        if($catValue1 && $catValue1->parent_id)
+        {
+            $catValue2 = Category::find($catValue1->parent_id);
+
+            if($catValue2->parent_id){
+
+                $catValue3 = Category::find($catValue2->parent_id);
+                return $catValue3->id;
+
+            }else{
+
+                return $catValue2->id;
+
+            }
+        }else{
+
+            return $catValue1->id;
+
+        }
+    }
+
+    public function submaincategory()
+    {
+        $value = $this->category_id;
+
+        $catValue1 = Category::find($value);
+
+        if($catValue1 && $catValue1->parent_id)
+        {
+            $catValue2 = Category::find($catValue1->parent_id);
+
+            if($catValue2->parent_id){
+                // if($catValue2->parent_id == $catValue1->id){
+                    return $catValue2->id;
+                // }else{
+                //  return null;
+                // }
+                
+                
+            }else{
+                return $catValue1->id;
+            }
+        }else{
+            return null;
+        }
+    }
+
+    public function subcategory()
+    {
+        $value = $this->category_id;
+
+        $catValue1 = Category::find($value);
+
+        if($catValue1 && $catValue1->parent_id)
+        {
+            $catValue2 = Category::find($catValue1->parent_id);
+
+            if($catValue2->parent_id){
+                
+                return $catValue1->id;
+            }else{
+                return null;
+            }
+        }else{
+            return null;
+        }
     }
 
 

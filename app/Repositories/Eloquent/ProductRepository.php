@@ -38,12 +38,22 @@ class ProductRepository extends Repository
 	public function store($request)
 	{
 
-		$input = $request->all();
+		$input = $request->except(['main_category', 'category']);
 
 		if(authUser()->is_admin){
 			$input['status'] = 'listed_for_sell';
 		}else{
 			$input['status'] = 'sell_request';
+		}
+
+		if($request->sub_category){
+			$input['category_id'] = $request->sub_category;
+		}else{
+			if($request->category){
+				$input['category_id'] = $request->category;
+			}else{
+				$input['category_id'] = $request->main_category;
+			}
 		}
 
     	$product = authUser()->products()->create($input);
@@ -63,12 +73,22 @@ class ProductRepository extends Repository
 	public function renew($product, $request)
 	{
 
-		$input = $request->all();
+		$input = $request->except(['main_category', 'category']);
 
 		if(authUser()->is_admin){
 			$input['status'] = 'listed_for_sell';
 		}else{
 			$input['status'] = 'sell_request';
+		}
+
+		if($request->sub_category){
+			$input['category_id'] = $request->sub_category;
+		}else{
+			if($request->category){
+				$input['category_id'] = $request->category;
+			}else{
+				$input['category_id'] = $request->main_category;
+			}
 		}
 
 		if($request->is_featured == 'on'){
@@ -88,6 +108,7 @@ class ProductRepository extends Repository
 		}else{
 			$input['home_delivery'] = 0;
 		}
+		$input['category'] = null;
 
     	$product->update($input);
 
@@ -173,10 +194,10 @@ class ProductRepository extends Repository
 	public function products()
 	{
 		if(authUser()->is_admin){
-			return $this->model->with('images');
+			return $this->model->with('images', 'categories');
 		}
 
-		return authUser()->products()->with('images');
+		return authUser()->products()->with('images', 'categories');
 	}
 
 	protected function filterByCondition($search)

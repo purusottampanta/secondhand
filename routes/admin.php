@@ -30,3 +30,10 @@ Route:: get('/sellRequest', [
 	'as' => 'admin.users.sellRequest',
 	'uses' => 'UserController@getSellRequest',
 ]);
+
+Route::get('categories/{category}/category-list', 'CategoriesController@getCategoryList');
+
+Route::resource('categories', 'CategoriesController', [
+        'except' => ['create', 'edit'],
+        'as' => 'admin'
+    ]);

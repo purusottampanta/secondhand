@@ -25,7 +25,9 @@
         "files":[
             "app/Http/Helpers/GeneralHelpers.php",
             "app/Http/Helpers/FormHelpers.php",
-            "app/Http/Helpers/StringHelpers.php"
+            "app/Http/Helpers/StringHelpers.php",
+            "app/Http/Utilities/CountryList.php",
+            "app/Http/Utilities/FontAwesomeIconList.php"
         ],
         "psr-4": {
             "App\\": "app/"

@@ -195,7 +195,7 @@
 							    </div>
 							    <div class="col-md-4">
 							    	<span class="{{ $product->status == 'sold' ? 'text-danger' :'' }}">{{ getStatus()[$product->status] }}</span>
-							    	<span class="pull-right">{{ getCategories()[$product->category] }}</span>
+							    	<span class="pull-right">{{ $product->categories? $product->categories->category : 'N/A' }}</span>
 							    </div>
 						    </a>
 						    <div class="hidden-md hidden-sm hidden-lg">
@@ -203,7 +203,7 @@
 						    	<br>
 						    	<small>
 						    		<strong>Category: </strong>
-						    		<span class="pad-l-10">{{ getCategories()[$product->category] }}</span>
+						    		<span class="pad-l-10">{{ $product->categories? $product->categories->category : 'N/A' }}</span>
 						    	</small>
 								<br>
 						    	<small>

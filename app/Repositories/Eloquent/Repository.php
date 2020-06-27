@@ -209,7 +209,8 @@ abstract class Repository
 	{
 		$data = [];
 		$data['file_type'] = null;
-		$uploadPath = public_path($path);
+		// $uploadPath = public_path($path);
+		$uploadPath = $path;
 		$extension = $file->getClientOriginalExtension();
 		$data['file_size'] = filesize($file);
 		$filename = time().str_random(20). "." .$extension;

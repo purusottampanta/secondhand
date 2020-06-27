@@ -1,5 +1,7 @@
 @extends('admin.dashboard-layout')
 
+@inject('main_category', 'App\Models\Category')
+
 @section('content')
 	<div class="row">
 		<div class="col-md-12">
@@ -25,7 +27,7 @@
                                 Image 1/2
                                 <span class="text-danger pad-l-10">*</span>
                             </label>
-                        <input type='file'  id="image0" name="image[0]" class="image" />
+                        <input type='file'  id="image0" name="image[0]" class="image" accept="image/*" />
                         {{-- <input type='file' id="image[0]" name="image[0]" class="image" /> --}}
                         <img id="img1" src="#" alt="your image" height="150em" width="200em" hidden="hidden" class="viewImage" />
                         {{-- @if($product->exists && array_key_exists(0, $images))
@@ -46,7 +48,7 @@
                                 Image 2/2
                                 <span class="text-danger pad-l-10">*</span>
                             </label>
-                        <input type='file' id="image1" name="image[1]" class="image" />
+                        <input type='file' id="image1" name="image[1]" class="image" accept="image/*" />
                         {{-- <input type='file' id="image[1]" name="image[1]" class="image" /> --}}
                         <img id="img1" src="#" alt="your image" height="150em" width="200em" hidden="hidden" class="viewImage" />
                         {{-- @if($product->exists && array_key_exists(0, $images))
@@ -104,7 +106,7 @@
 		                </div>
 		            </div>
 				</div>
-				<div class="row">
+				{{-- <div class="row">
 					<div class="col-md-12 form-group{{ $errors->has('category') ? ' has-error' : '' }}">
 		                <div class="col-md-offset-1 col-md-2">
 		                	<label for="category" class="control-label">Category</label>
@@ -125,6 +127,50 @@
 		                    @endif
 		                </div>
 		            </div>
+				</div> --}}
+				<div class="form-group {{ ($errors->has('main_category') ? 'has-error' : '') }}">
+				    <div class="col-md-3 col-sm-6">
+				        <label for="main_category" class="control-label pull-right">
+				            Category
+				            <span class="text-danger pad-l-10">*</span>
+				        </label>
+				    </div>
+				    <div class="col-md-6 col-sm-6">
+				        <select class="form-control" id="main_category" name="main_category" required>
+				            <option value="">Select category</option>
+				            @foreach($main_category->where('parent_id', null)->get() as $main)
+				                <option value="{{ $main->id }}" {{old("main_category") == $main->id ? "selected":"" }}>{{ $main->category }}</option>
+				            @endforeach
+				        </select>
+				        @if ($errors-> has('main_category'))
+				        <span class="glyphicon glyphicon-warning-sign form-control-feedback">
+				        </span>
+				        <span class="help-block">
+				            <strong>
+				              {{ $errors-> first('main_category') }}
+				            </strong>
+				        </span>
+				        @endif
+				    </div>
+				    <div  id="spinner" hidden="hidden">
+
+				        <span class="fa fa-spinner fa-spin fa-2x"></span>
+
+				    </div>
+
+				    <div class="col-md-offset-3 col-md-6">
+				        <div class="form-group secondselector pad-r-10" hidden="hidden" style="margin-top: 10px!important">
+				            <select id=secondselectbox class="form-control mar-l-10" name="category"></select>
+				            <div  id="spinnerSecond" hidden="hidden">
+
+				                <span class="fa fa-spinner fa-spin fa-2x"></span>
+
+				            </div>
+				        </div>
+				        <div class="form-group thirdselector pad-r-10" hidden="hidden" style="margin-top: 10px!important">
+				            <select id=thirdselectbox class="form-control mar-l-10" name="sub_category"></select>
+				        </div> 
+				    </div> 
 				</div>
 				<div class="row">
 					<div class="col-md-12 form-group{{ $errors->has('price') ? ' has-error' : '' }}">
@@ -323,6 +369,64 @@
 	<script src="{{asset('js/sweetalert.min.js')}}"></script>
 	<script>
 
+		$('#main_category').on('change', function(e){
+		    e.preventDefault();
+		    $('#spinner').show();
+		    var id = $(this).val();
+		    var url = "/admin/categories/" + id +"/category-list";
+		    var data = {'id' : id};
+
+		    if(id){
+		    	$.ajax({
+			        url: url,
+			        type: 'GET',
+			        // data: data,
+			        success:function(data){
+			            var locationString = '<option value="">Please select</option>';
+			            $('#thirdselectbox').html(locationString);
+			            for(var i =0; i<data.length; i++){
+			                locationString += '<option value="' + data[i].id + '">' + data[i].category + '</option>';
+			            }
+			            $('#secondselectbox').parent('.secondselector').removeAttr('hidden');
+			            $('#secondselectbox').html(locationString);
+			            $('#spinner').hide();
+			        }
+			    });
+		    }else{
+		    	var locationString = '<option value="">Please select</option>';
+		    	$('#secondselectbox').html(locationString);
+			    $('#thirdselectbox').html(locationString);
+		    }
+		});
+		$('#secondselectbox').on('change', function(e){
+		    e.preventDefault();
+		    $('#spinnerSecond').show();
+		    var id = $(this).val();
+		    var url = "/admin/categories/" + id +"/category-list";
+		    var data = {'id' : id};
+
+		    if(id){
+		    	$.ajax({
+		    	    url: url,
+		    	    type: 'GET',
+		    	    // data: data,
+		    	    success:function(data){
+		    	        var locationString = '<option value="">Please select</option>';
+		    	        for(var i =0; i<data.length; i++){
+		    	            locationString += '<option value="' + data[i].id + '">' + data[i].category + '</option>';
+		    	        }
+		    	        $('#thirdselectbox').parent('.thirdselector').removeAttr('hidden');
+		    	        $('#thirdselectbox').html(locationString);
+		    	        $('#spinnerSecond').hide();
+		    	    }
+		    	});
+		    }else{
+		    	var locationString = '<option value="">Please select</option>';
+		    	$('#thirdselectbox').html(locationString);
+		    	$('#spinnerSecond').hide();
+		    }
+		});
+
 		// if (window.File && window.FileReader && window.FileList && window.Blob) {
 		//     document.getElementById('image0').onchange = function(){
 		//         var files = document.getElementById('image0').files;
@@ -396,10 +500,12 @@
 	               var blob = b64toBlob(realData, contentType);
 
 	               // Create a FormData and append the file
-	               var fd = new FormData($("#createImageForm"));
+	               var fd = new FormData();
 	               fd.append('product_name', $('#product_name').val());
 	               fd.append('condition', $('#condition').val());
-	               fd.append('category', $('#category').val());
+	               fd.append('main_category', $('#main_category').val());
+	               fd.append('category', $('#secondselectbox').val());
+	               fd.append('sub_category', $('#thirdselectbox').val());
 	               fd.append('price', $('#price').val());
 	               fd.append('discount', $('#discount').val());
 
@@ -421,6 +527,8 @@
 	               fd.append('meta_key', $('#meta_key').val());
 	               fd.append('meta_description', $('#meta_description').val());
 	               fd.append("image[0]", blob, file.name);
+
+	               console.log(fd);
 
 			        $.ajax({
 	                    url:"{{ route('admin.products.store') }}",
@@ -498,9 +606,11 @@
 	               var blob = b64toBlob(realData, contentType);
 
 	               // Create a FormData and append the file
-	               var fd = new FormData($("#createImageForm"));
+	               var fd = new FormData();
 	               fd.append('is_from_create', 'yes');
 	               fd.append("image", blob, file.name);
+
+	               console.log(fd);
 
 			        $.ajax({
 	                    url:url,

@@ -37,6 +37,11 @@
             <li class="active"><a href="{{ route('admin.dashboard') }}"><i class="fa fa-circle-o"></i> Dashboard</a></li>
           </ul> --}}
         </li>
+        <li class="{{ setActive('admin.categories') }}">
+          <a href="{{ route('admin.categories.index') }}">
+            <i class="fa fa-list"></i> <span>Categories</span>
+          </a>
+        </li>
         <li class="treeview {{ set_active('admin/users') }}">
           <a href="#" class="{{ set_active('admin/users') }}">
             <i class="fa fa-users"></i>
